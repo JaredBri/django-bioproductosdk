@@ -1,0 +1,195 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}Inicio | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="pagina-inicio">
+
+    <!-- SECCIÓN PRINCIPAL DE BIENVENIDA -->
+    <section class="banner-inicio">
+        <div class="banner-contenido">
+            <p class="antetitulo">Biotecnología verde</p>
+            <h1>Limpieza y cuidado personal, <span class="texto-destacado">más conscientes.</span></h1>
+            <p>
+                BioProductos DK valoriza residuos orgánicos mediante biotecnología
+                y nanotecnología verde para desarrollar productos de limpieza
+                y cuidado personal.
+            </p>
+            <div class="contenedor-boton">
+                <a href="{% url 'tienda' %}" class="boton-principal">Ver tienda</a>
+                <a href="{% url 'nosotros' %}" class="boton-secundario">Conócenos</a>
+            </div>
+        </div>
+
+        <!-- La foto se pone desde index.css (heroPrincipal.jpg) -->
+        <div class="banner-imagen">
+            <button class="boton-video" onclick="document.getElementById('ventanaVideo').showModal()">
+                <i class="fas fa-play"></i> Ver video
+            </button>
+        </div>
+    </section>
+
+    <!-- VENTANA DEL VIDEO -->
+    <dialog id="ventanaVideo" class="ventana-video" onclose="this.querySelector('video').pause()">
+        <form method="dialog">
+            <button class="boton-cerrar">Cerrar ✕</button>
+        </form>
+        <video controls src="{% static 'images/videoPresentacion.mp4' %}"></video>
+    </dialog>
+
+    <!-- ATRIBUTOS -->
+    <section class="seccion-atributos">
+        <p class="atributo"><i class="fas fa-leaf"></i> Fórmulas biodegradables</p>
+        <p class="atributo"><i class="fas fa-atom"></i> Nanotecnología verde</p>
+        <p class="atributo"><i class="fas fa-recycle"></i> Residuos orgánicos revalorizados</p>
+        <p class="atributo"><i class="fas fa-flask"></i> Ciencia hecha en Chile</p>
+    </section>
+
+    <!-- INFORMACIÓN CORPORATIVA -->
+    <section class="seccion-informacion">
+        <p class="antetitulo">Conócenos</p>
+        <h2>Información corporativa</h2>
+
+        <div class="grilla-tarjetas">
+            <div class="tarjeta">
+                <h3>Quiénes somos</h3>
+                <p>BioProductos DK transforma residuos orgánicos en productos mediante biotecnología y nanotecnología verde.</p>
+                <a href="{% url 'nosotros' %}">Nuestra historia <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="tarjeta">
+                <h3>Qué ofrecemos</h3>
+                <p>Líneas de productos de cuidado personal y limpieza, con foco en productos biodegradables.</p>
+                <a href="{% url 'tienda' %}">Ir a la tienda <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="tarjeta">
+                <h3>Nuestro enfoque</h3>
+                <p>Productos dermatológicamente testeados y orientados al cuidado de las personas y del medioambiente.</p>
+                <a href="{% url 'ciencia' %}">La ciencia detrás <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTOS DESTACADOS -->
+    <section class="seccion-productos">
+        <div class="encabezado-seccion">
+            <div>
+                <p class="antetitulo">Tienda</p>
+                <h2>Productos destacados</h2>
+            </div>
+            <a href="{% url 'tienda' %}">Ver todos los productos <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="grilla-productos">
+            {% for producto in productosDestacados %}
+            <div class="tarjeta-producto">
+                <a href="{% url 'detalleProducto' producto.id %}" class="imagen-producto">
+                    {% if producto.imagen %}
+                    <img src="{% static 'images/' %}{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                    {% endif %}
+                </a>
+                <div class="datos-producto">
+                    <p class="marca-producto">{{ producto.marca }}</p>
+                    <h3><a href="{% url 'detalleProducto' producto.id %}">{{ producto.nombre }}</a></h3>
+                    <p>{{ producto.descripcion|truncatechars:70 }}</p>
+                    <div class="pie-producto">
+                        <span class="precio">${{ producto.precio|floatformat:"0g" }}</span>
+                        {% if producto.stock > 0 %}
+                        <form method="post" action="{% url 'agregarCarrito' producto.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="boton-agregar" title="Agregar al carrito">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </form>
+                        {% else %}
+                        <span class="etiqueta-agotado">Agotado</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>Pronto verás aquí nuestros productos.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- CIENCIA -->
+    <section class="seccion-ciencia">
+        <!-- La foto se pone desde index.css (laboratorio.jpg) -->
+        <div class="imagen-ciencia"></div>
+
+        <div class="texto-ciencia">
+            <p class="antetitulo">Ciencia</p>
+            <h2>De residuo orgánico a producto que cuida</h2>
+            <p>
+                Recuperamos compuestos valiosos de residuos orgánicos y, con
+                nanotecnología verde, los convertimos en ingredientes activos
+                para nuestras fórmulas.
+            </p>
+            <div class="contenedor-boton">
+                <a href="{% url 'ciencia' %}" class="boton-secundario">Cómo lo hacemos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FUNDADORAS -->
+    <section class="seccion-fundadoras">
+        <div class="texto-fundadoras">
+            <p class="antetitulo">Las fundadoras</p>
+            <h2>Las personas detrás de BioProductos DK</h2>
+            <p>
+                Sindy Devis y Carolina Klagges fundaron BioProductos DK y hoy
+                lideran su estrategia, su operación y su investigación.
+            </p>
+            <div class="contenedor-boton">
+                <a href="{% url 'nosotros' %}" class="boton-amarillo">Conoce al equipo</a>
+            </div>
+        </div>
+
+        <!-- Las fotos se ponen desde index.css (fundadoraSindy.jpg y fundadoraCarolina.jpg) -->
+        <div class="fotos-fundadoras">
+            <div class="foto-fundadora foto-sindy"></div>
+            <div class="foto-fundadora foto-carolina"></div>
+        </div>
+    </section>
+
+    <!-- COLABORADORES -->
+    <section class="seccion-colaboradores">
+        <div class="encabezado-seccion">
+            <div>
+                <p class="antetitulo">Red de apoyo</p>
+                <h2>Colaboradores</h2>
+            </div>
+            <a href="{% url 'colaboradores' %}">Ver todos <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="lista-colaboradores">
+            {% for colaborador in colaboradores %}
+            <div class="colaborador">
+                {% if colaborador.logo %}
+                <img src="{% static 'images/' %}{{ colaborador.logo }}" alt="{{ colaborador.nombre_colaborador }}">
+                {% else %}
+                {{ colaborador.nombre_colaborador }}
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- SECCIÓN FINAL -->
+    <section class="seccion-final">
+        <div>
+            <h2>¿Compras para tu empresa?</h2>
+            <p>Ofrecemos venta mayorista, maquila, consultorías e investigación aplicada.</p>
+        </div>
+        <a href="{% url 'contacto' %}" class="boton-amarillo">Contáctanos</a>
+    </section>
+
+</div>
+
+{% endblock %}
