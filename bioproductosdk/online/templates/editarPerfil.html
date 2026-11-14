@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Editar perfil | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/cuenta.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="pagina-editar-perfil">
+
+    <!-- TÍTULO DE LA PÁGINA -->
+    <section class="encabezado-pagina">
+        <p class="antetitulo">Mi cuenta</p>
+        <h1>Editar perfil</h1>
+    </section>
+
+    <section class="seccion-editar">
+
+        <!-- DATOS PERSONALES Y DIRECCIÓN -->
+        <form method="post" action="{% url 'editarPerfil' %}" class="tarjeta formulario">
+            {% csrf_token %}
+            <p class="error-formulario">{{ formulario.non_field_errors.0 }}</p>
+
+            <h3>Datos personales</h3>
+            <div class="campo">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" value="{% firstof formulario.nombre.value user.first_name %}" required>
+                <p class="error-campo">{{ formulario.nombre.errors.0 }}</p>
+            </div>
+            <div class="fila-campos">
+                <div class="campo">
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" id="correo" name="correo" value="{% firstof formulario.correo.value user.email %}" required>
+                    <p class="error-campo">{{ formulario.correo.errors.0 }}</p>
+                </div>
+                <div class="campo">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="+56 9 0000 0000" value="{% firstof formulario.telefono.value user.perfil.telefono %}">
+                    <p class="error-campo">{{ formulario.telefono.errors.0 }}</p>
+                </div>
+            </div>
+
+            <h3>Dirección de despacho</h3>
+            <div class="campo">
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" name="direccion" placeholder="Calle, número, depto." value="{% firstof formulario.direccion.value user.perfil.direccion %}">
+                <p class="error-campo">{{ formulario.direccion.errors.0 }}</p>
+            </div>
+            <div class="fila-campos">
+                <div class="campo">
+                    <label for="comuna">Comuna</label>
+                    <input type="text" id="comuna" name="comuna" value="{% firstof formulario.comuna.value user.perfil.comuna %}">
+                    <p class="error-campo">{{ formulario.comuna.errors.0 }}</p>
+                </div>
+                <div class="campo">
+                    <label for="region">Región</label>
+                    <select id="region" name="region">
+                        <option value="">Selecciona una región</option>
+                        {% for impuesto in impuestos %}
+                        <option value="{{ impuesto.region }}" {% if impuesto.region == user.perfil.region %}selected{% endif %}>{{ impuesto.region }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="contenedor-boton">
+                <button type="submit" class="boton-principal">Guardar cambios</button>
+                <a href="{% url 'perfil' %}" class="boton-secundario">Cancelar</a>
+            </div>
+        </form>
+
+        <!-- CAMBIO DE CONTRASEÑA -->
+        <form method="post" action="{% url 'cambiarContrasena' %}" class="tarjeta formulario">
+            {% csrf_token %}
+            <p class="error-formulario">{{ formularioContrasena.non_field_errors.0 }}</p>
+
+            <h3>Cambiar contraseña</h3>
+            <div class="campo">
+                <label for="contrasenaActual">Contraseña actual</label>
+                <input type="password" id="contrasenaActual" name="contrasenaActual" required>
+                <p class="error-campo">{{ formularioContrasena.contrasenaActual.errors.0 }}</p>
+            </div>
+            <div class="fila-campos">
+                <div class="campo">
+                    <label for="contrasenaNueva">Contraseña nueva</label>
+                    <input type="password" id="contrasenaNueva" name="contrasenaNueva" required>
+                    <p class="error-campo">{{ formularioContrasena.contrasenaNueva.errors.0 }}</p>
+                </div>
+                <div class="campo">
+                    <label for="confirmarContrasena">Repite la contraseña nueva</label>
+                    <input type="password" id="confirmarContrasena" name="confirmarContrasena" required>
+                    <p class="error-campo">{{ formularioContrasena.confirmarContrasena.errors.0 }}</p>
+                </div>
+            </div>
+
+            <div class="contenedor-boton">
+                <button type="submit" class="boton-secundario">Actualizar contraseña</button>
+            </div>
+        </form>
+
+    </section>
+
+</div>
+
+{% endblock %}

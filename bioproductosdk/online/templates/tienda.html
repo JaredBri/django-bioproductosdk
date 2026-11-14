@@ -24,8 +24,8 @@
         <div class="barra-filtros">
             <div class="filtros">
                 <a href="{% url 'tienda' %}" class="filtro {% if not categoriaActual %}filtro-activo{% endif %}">Todos</a>
-                {% for categoria in categorias %}
-                <a href="{% url 'tiendaCategoria' categoria %}" class="filtro {% if categoria == categoriaActual %}filtro-activo{% endif %}">{{ categoria }}</a>
+                {% for cat in categorias %}
+                <a href="{% url 'tiendaCategoria' cat.nombre %}" class="filtro {% if cat.nombre == categoriaActual %}filtro-activo{% endif %}">{{ cat.nombre }}</a>
                 {% endfor %}
             </div>
 
@@ -41,7 +41,7 @@
             <div class="tarjeta-producto">
                 <a href="{% url 'detalleProducto' producto.id %}" class="imagen-producto">
                     {% if producto.imagen %}
-                    <img src="{% static 'images/' %}{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
                     {% endif %}
                 </a>
                 <div class="datos-producto">

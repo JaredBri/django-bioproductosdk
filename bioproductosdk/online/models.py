@@ -1,8 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Categoria(models.Model):
+    nombre = models.CharField(max_length=50, unique=True)
 
-# Productos de la tienda
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural = "Categorías"
+
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)  # antes 20: no cabía "Detergente líquido biodegradable Cítrico"
     medida = models.FloatField(blank=True, null=True)
@@ -10,7 +17,7 @@ class Producto(models.Model):
     precio = models.IntegerField()
     stock = models.PositiveIntegerField()
     descripcion = models.TextField()
-    categoria = models.CharField(max_length=50)
+    categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     marca = models.CharField(max_length=20)
     # NUEVO: nombre del archivo dentro de online/static/images/ (ej: detergenteCitrico.jpg)
     imagen = models.ImageField(upload_to='productos/', max_length=100, blank=True)
@@ -20,15 +27,12 @@ class Producto(models.Model):
 
     def save(self, *args, **kwargs):
         # Limpia espacios extra y deja la primera letra en mayúscula
-        if self.categoria:
-            self.categoria = self.categoria.strip().capitalize()
         if self.marca:
             self.marca = self.marca.strip().capitalize()
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.nombre
-
 
 class Impuestos(models.Model):
     iva = models.FloatField()
@@ -40,8 +44,6 @@ class Impuestos(models.Model):
     def __str__(self):
         return f'IVA: {self.iva} - Región: {self.region} - Despacho:{self.despacho}'
 
-
-# Carrito de compras
 class Carrito(models.Model):
     TIPOS_ENVIO = [
         ('retiro', 'Retiro en tienda'),
@@ -56,8 +58,6 @@ class Carrito(models.Model):
     def __str__(self):
         return f"Carrito {self.id} - Usuario: {self.usuario}"
 
-
-# Productos agregados al carrito
 class ItemCarrito(models.Model):
     carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE, related_name='items')
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
@@ -69,7 +69,6 @@ class ItemCarrito(models.Model):
     def subtotal(self):
         return self.producto.precio * self.cantidad
 
-
 class Colaboradores(models.Model):
     nombre_colaborador = models.CharField(max_length=100)
     descripcion = models.TextField(blank=True)             # NUEVO: texto breve de la colaboración
@@ -78,7 +77,6 @@ class Colaboradores(models.Model):
 
     def __str__(self):
         return self.nombre_colaborador
-
 
 # NUEVO: datos de contacto y despacho del usuario (RFU003, perfil.html y editarPerfil.html)
 # En los templates se usa como user.perfil.telefono, user.perfil.direccion, etc.

@@ -15,7 +15,7 @@
     <section class="detalle-producto">
         <div class="imagen-detalle">
             {% if producto.imagen %}
-            <img src="{% static 'images/' %}{{ producto.imagen }}" alt="{{ producto.nombre }}">
+            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
             {% endif %}
         </div>
 

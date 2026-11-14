@@ -1,0 +1,62 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}Tu perfil | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/cuenta.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="pagina-perfil">
+
+    <!-- TÍTULO DE LA PÁGINA -->
+    <section class="encabezado-pagina">
+        <p class="antetitulo">Mi cuenta</p>
+        <h1>Tu perfil</h1>
+        <p class="bajada">Consulta y actualiza tus datos personales y de despacho.</p>
+    </section>
+
+    <section class="seccion-perfil">
+
+        <!-- USUARIO -->
+        <div class="tarjeta datos-usuario">
+            <span class="avatar">{{ user.first_name|first|upper }}</span>
+            <div>
+                <h3>{{ user.first_name }}</h3>
+                <p>{{ user.email }}</p>
+            </div>
+        </div>
+
+        <!-- DATOS (user.perfil es el modelo Perfil) -->
+        <div class="grilla-perfil">
+            <div class="tarjeta">
+                <h3>Datos personales</h3>
+                <p class="dato"><span>Nombre</span> <strong>{{ user.first_name|default:"Sin completar" }}</strong></p>
+                <p class="dato"><span>Correo electrónico</span> <strong>{{ user.email|default:"Sin completar" }}</strong></p>
+                <p class="dato"><span>Teléfono</span> <strong>{{ user.perfil.telefono|default:"Sin completar" }}</strong></p>
+            </div>
+            <div class="tarjeta">
+                <h3>Dirección de despacho</h3>
+                <p class="dato"><span>Dirección</span> <strong>{{ user.perfil.direccion|default:"Sin completar" }}</strong></p>
+                <p class="dato"><span>Comuna</span> <strong>{{ user.perfil.comuna|default:"Sin completar" }}</strong></p>
+                <p class="dato"><span>Región</span> <strong>{{ user.perfil.region|default:"Sin completar" }}</strong></p>
+            </div>
+        </div>
+
+        <!-- ACCIONES -->
+        <div class="contenedor-boton">
+            <a href="{% url 'editarPerfil' %}" class="boton-principal">Editar perfil</a>
+            <a href="{% url 'carrito' %}" class="boton-secundario">Ver mi carrito</a>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="boton-secundario">Cerrar sesión</button>
+            </form>
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

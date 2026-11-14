@@ -1,0 +1,31 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}Sesión cerrada | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/cuenta.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Página que se muestra después de cerrar sesión.
+     El cierre se hace por POST con el botón "Cerrar sesión" de base.html. -->
+
+<div class="pagina-logout">
+
+    <section class="seccion-acceso">
+        <div class="tarjeta tarjeta-acceso tarjeta-centrada">
+            <i class="fas fa-check-circle icono-acceso"></i>
+            <h1>Cerraste tu sesión</h1>
+            <p class="bajada">Gracias por visitarnos. Te esperamos de vuelta.</p>
+            <div class="contenedor-boton">
+                <a href="{% url 'inicio' %}" class="boton-principal">Volver al inicio</a>
+                <a href="{% url 'login' %}" class="boton-secundario">Iniciar sesión otra vez</a>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}
