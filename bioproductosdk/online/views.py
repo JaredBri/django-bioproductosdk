@@ -1,11 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Producto, Categoria
+from .models import Producto, Categoria, Colaboradores
 from django.contrib.auth import logout, login as auth_login
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 # NAVEGACIÓN 
 def inicio(request):
-    return render(request, "index.html")
+    # Productos marcados como "destacado" en el admin (máximo 4) y logos de colaboradores
+    productosDestacados = Producto.objects.filter(destacado=True)[:4]
+    colaboradores = Colaboradores.objects.all()
+    return render(request, "index.html", {
+        'productosDestacados': productosDestacados,
+        'colaboradores': colaboradores,
+    })
 
 def tienda(request, categoria=''):
     productos = Producto.objects.all()
@@ -40,7 +46,9 @@ def nosotros(request):
     return render(request, "nosotros.html")
 
 def colaboradores(request):
-    return render(request, "colaboradores.html")
+    return render(request, "colaboradores.html", {
+        'colaboradores': Colaboradores.objects.all(),
+    })
 
 def ciencia(request):
     return render(request, "ciencia.html")
@@ -110,5 +118,5 @@ def cerrarSesion(request):
 def carrito(request):
     return render(request, "index.html")
 
-def agregarCarrito(request, pk):
+def agregarCarrito(request, id):  # "id" coincide con la ruta agregarCarrito/<int:id> de urls.py
     return render(request, "index.html")

@@ -4,7 +4,7 @@
 {% block title %}Contacto | BioProductos DK{% endblock %}
 
 {% block links %}
-<link rel="stylesheet" href="{% static 'css/informacion.css' %}">
+<link rel="stylesheet" href="{% static 'css/informacion.css' %}?v=4">
 {% endblock %}
 
 {% block content %}
@@ -12,10 +12,14 @@
 <div class="pagina-contacto">
 
     <!-- TÍTULO DE LA PÁGINA -->
-    <section class="encabezado-pagina">
-        <p class="antetitulo">Contacto</p>
-        <h1>Hablemos</h1>
-        <p class="bajada">Dudas sobre un producto, compras para tu empresa o ideas para colaborar: escríbenos y te respondemos por correo.</p>
+    <section class="encabezado-pagina encabezado-contacto">
+        <div class="texto-encabezado">
+            <p class="antetitulo">Contacto</p>
+            <h1>Hablemos</h1>
+            <p class="bajada">Dudas sobre un producto, compras para tu empresa o ideas para colaborar: escríbenos y te respondemos por correo.</p>
+        </div>
+        <!-- La foto se pone desde informacion.css (bioLogoNaturaleza.jpg) -->
+        <div class="imagen-encabezado-contacto" role="img" aria-label="Logo de BioProductos DK rodeado de vegetación"></div>
     </section>
 
     <section class="seccion-contacto">
@@ -48,6 +52,7 @@
                 <label for="tipoConsulta">¿Sobre qué nos escribes?</label>
                 <select id="tipoConsulta" name="tipoConsulta">
                     <option value="producto">Consulta sobre un producto o pedido</option>
+                    <option value="distribuidor" {% if request.GET.tipo == 'distribuidor' %}selected{% endif %}>Quiero ser biodistribuidor DK</option>
                     <option value="mayorista">Venta mayorista</option>
                     <option value="maquila">Maquila</option>
                     <option value="consultoria">Consultoría o I+D+i</option>
@@ -66,11 +71,13 @@
         </form>
 
         <!-- DATOS DE CONTACTO (editar con los datos reales) -->
+        <div class="columna-contacto">
         <div class="tarjeta datos-contacto">
             <p><i class="fas fa-envelope"></i> <span><strong>Correo</strong> contacto@bioproductosdk.cl</span></p>
             <p><i class="fas fa-phone"></i> <span><strong>WhatsApp</strong> +56 9 0000 0000</span></p>
             <p><i class="fas fa-map-marker-alt"></i> <span><strong>Ubicación</strong> Santiago, Chile</span></p>
             <p><i class="fas fa-clock"></i> <span><strong>Horario</strong> Lunes a viernes, 9:00 a 18:00</span></p>
+        </div>
         </div>
 
     </section>

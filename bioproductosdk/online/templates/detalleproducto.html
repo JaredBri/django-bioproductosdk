@@ -4,7 +4,7 @@
 {% block title %}{{ producto.nombre }} | BioProductos DK{% endblock %}
 
 {% block links %}
-<link rel="stylesheet" href="{% static 'css/tienda.css' %}">
+<link rel="stylesheet" href="{% static 'css/tienda.css' %}?v=4">
 {% endblock %}
 
 {% block content %}
@@ -67,7 +67,7 @@
             <div class="tarjeta-producto">
                 <a href="{% url 'detalleProducto' producto.id %}" class="imagen-producto">
                     {% if producto.imagen %}
-                    <img src="{% static 'images/' %}{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
                     {% endif %}
                 </a>
                 <div class="datos-producto">

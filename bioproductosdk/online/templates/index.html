@@ -4,7 +4,7 @@
 {% block title %}Inicio | BioProductos DK{% endblock %}
 
 {% block links %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/index.css' %}?v=4">
 {% endblock %}
 
 {% block content %}
@@ -90,7 +90,7 @@
             <div class="tarjeta-producto">
                 <a href="{% url 'detalleProducto' producto.id %}" class="imagen-producto">
                     {% if producto.imagen %}
-                    <img src="{% static 'images/' %}{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
                     {% endif %}
                 </a>
                 <div class="datos-producto">
@@ -158,7 +158,8 @@
         </div>
     </section>
 
-    <!-- COLABORADORES -->
+    <!-- COLABORADORES (solo se muestra si hay colaboradores cargados en el admin) -->
+    {% if colaboradores %}
     <section class="seccion-colaboradores">
         <div class="encabezado-seccion">
             <div>
@@ -180,12 +181,13 @@
             {% endfor %}
         </div>
     </section>
+    {% endif %}
 
     <!-- SECCIÓN FINAL -->
     <section class="seccion-final">
         <div>
             <h2>¿Compras para tu empresa?</h2>
-            <p>Ofrecemos venta mayorista, maquila, consultorías e investigación aplicada.</p>
+            <p>Ofrecemos venta mayorista, maquila, consultorías e investigación aplicada. Si quieres comercializar nuestros productos, conviértete en biodistribuidor DK.</p>
         </div>
         <a href="{% url 'contacto' %}" class="boton-amarillo">Contáctanos</a>
     </section>

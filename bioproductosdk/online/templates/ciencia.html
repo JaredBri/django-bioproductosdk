@@ -4,7 +4,7 @@
 {% block title %}Ciencia | BioProductos DK{% endblock %}
 
 {% block links %}
-<link rel="stylesheet" href="{% static 'css/informacion.css' %}">
+<link rel="stylesheet" href="{% static 'css/informacion.css' %}?v=4">
 {% endblock %}
 
 {% block content %}
@@ -69,10 +69,86 @@
             <p class="antetitulo">I+D+i</p>
             <h2>Investigación, desarrollo e innovación</h2>
             <p>Cada producto parte de una pregunta de investigación. Probamos, medimos y ajustamos las fórmulas antes de que lleguen a la tienda.</p>
-            <p><span class="texto-pendiente">Texto pendiente: líneas de investigación, proyectos, publicaciones o patentes.</span></p>
+            <p>Nuestros primeros detergentes nacieron de residuos orgánicos optimizados mediante nanoemulsiones, combinados con una selección de ingredientes sustentables y de origen vegetal.</p>
         </div>
         <!-- La foto se pone desde informacion.css (laboratorio.jpg) -->
         <div class="imagen-seccion imagen-laboratorio"></div>
+    </section>
+
+    <!-- HACER CIENCIA HOY (bloque verde con cita) -->
+    <section class="seccion-reflexion">
+        <p class="antetitulo">Hacer ciencia hoy</p>
+        <blockquote class="cita-ciencia">
+            Significa más que generar conocimiento: es usarlo para resolver desafíos reales y construir un futuro más sostenible.
+        </blockquote>
+
+        <div class="grilla-reflexion">
+            <div class="paso">
+                <i class="fas fa-lightbulb icono-tarjeta"></i>
+                <h3>Nuestra motivación</h3>
+                <p>Transformar la ciencia en impacto: soluciones reales que salen del laboratorio.</p>
+            </div>
+            <div class="paso">
+                <i class="fas fa-globe-americas icono-tarjeta"></i>
+                <h3>Nuestra mirada</h3>
+                <p>La ciencia y la química valen más cuando se convierten en una herramienta para cuidar a todos los seres vivos y al planeta.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ECONOMÍA CIRCULAR (resumen + 4 principios + explicación desplegable) -->
+    <section class="seccion-dividida seccion-circular">
+        <!-- La foto se pone desde informacion.css (economiaCircular.jpg) -->
+        <div class="imagen-seccion imagen-economia-circular"></div>
+        <div class="texto-seccion">
+            <p class="antetitulo">Economía circular</p>
+            <h2>Eliminar la basura desde el diseño</h2>
+            <p class="texto-lead">Reutilizamos y revalorizamos materiales en cada etapa: diseño, formulación, producción y venta.</p>
+
+            <div class="grilla-erres">
+                <div class="erre"><i class="fas fa-compress-alt"></i><span>Reducir</span></div>
+                <div class="erre"><i class="fas fa-redo"></i><span>Reutilizar</span></div>
+                <div class="erre"><i class="fas fa-recycle"></i><span>Reciclar</span></div>
+                <div class="erre"><i class="fas fa-seedling"></i><span>Regenerar</span></div>
+            </div>
+
+            <details class="leer-mas">
+                <summary>¿Qué es la economía circular?</summary>
+                <p>Es un modelo que busca reducir el impacto ambiental de la producción y el consumo, evitando la generación de basura y la contaminación.</p>
+                <p>Los materiales biodegradables vuelven a la naturaleza; los no biodegradables se mantienen en el ciclo productivo gracias al diseño, la reparación y la innovación.</p>
+                <ul class="lista-beneficios">
+                    <li>Ahorro de energía y materias primas</li>
+                    <li>Creación de empleo</li>
+                    <li>Mejor salud y calidad de vida</li>
+                    <li>Protección del clima y la biodiversidad</li>
+                </ul>
+            </details>
+        </div>
+    </section>
+
+    <!-- GALERÍA DEL LABORATORIO (fotos en static/images/galeria/) -->
+    <section class="seccion-galeria">
+        <p class="antetitulo">Nuestro laboratorio</p>
+        <h2>Donde nace cada fórmula</h2>
+
+        <div class="grilla-galeria">
+            <figure class="foto-galeria">
+                <img src="{% static 'images/galeria/materiaPrima.jpg' %}" alt="Materia prima obtenida a partir de residuos orgánicos" loading="lazy">
+                <figcaption>Materia prima revalorizada</figcaption>
+            </figure>
+            <figure class="foto-galeria">
+                <img src="{% static 'images/galeria/secado.jpg' %}" alt="Equipo de secado en el laboratorio" loading="lazy">
+                <figcaption>Secado y procesamiento</figcaption>
+            </figure>
+            <figure class="foto-galeria">
+                <img src="{% static 'images/galeria/procesadorUltrasonico.jpg' %}" alt="Procesador ultrasónico del laboratorio" loading="lazy">
+                <figcaption>Procesador ultrasónico</figcaption>
+            </figure>
+            <figure class="foto-galeria">
+                <img src="{% static 'images/galeria/materialLaboratorio.jpg' %}" alt="Material de vidrio de laboratorio" loading="lazy">
+                <figcaption>Investigación y control de calidad</figcaption>
+            </figure>
+        </div>
     </section>
 
     <!-- PREGUNTAS FRECUENTES -->

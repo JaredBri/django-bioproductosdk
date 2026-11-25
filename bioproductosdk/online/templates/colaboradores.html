@@ -4,7 +4,7 @@
 {% block title %}Colaboradores | BioProductos DK{% endblock %}
 
 {% block links %}
-<link rel="stylesheet" href="{% static 'css/informacion.css' %}">
+<link rel="stylesheet" href="{% static 'css/informacion.css' %}?v=4">
 {% endblock %}
 
 {% block content %}
@@ -49,6 +49,7 @@
     <section class="seccion-servicios" id="empresas">
         <p class="antetitulo">Servicios para empresas</p>
         <h2>Llevamos nuestra ciencia a tu negocio</h2>
+        <p class="bajada-servicios">En Bioproductos DK contamos con una amplia variedad de artículos y productos para uso comercial.</p>
 
         <div class="grilla-pasos">
             <div class="paso">
@@ -77,10 +78,10 @@
     <!-- SECCIÓN FINAL -->
     <section class="seccion-final">
         <div>
-            <h2>¿Quieres colaborar o cotizar un servicio?</h2>
-            <p>Cuéntanos qué necesitas y te respondemos por correo.</p>
+            <h2>Vende Bioproductos DK</h2>
+            <p>Si estás interesado en comercializar nuestros productos y convertirte en un biodistribuidor DK, no dudes en contactarnos. Completa el formulario y te responderemos lo antes posible.</p>
         </div>
-        <a href="{% url 'contacto' %}" class="boton-amarillo">Escríbenos</a>
+        <a href="{% url 'contacto' %}?tipo=distribuidor" class="boton-amarillo">¿Quieres vender nuestros productos?</a>
     </section>
 
 </div>

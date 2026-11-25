@@ -73,6 +73,30 @@
         linear-gradient(140deg, var(--amarillo-claro), var(--verde-salvia));
 }
 
+.imagen-economia-circular {
+    background:
+        url('../images/economiaCircular.jpg') center/cover no-repeat,
+        linear-gradient(140deg, var(--amarillo-claro), var(--verde-salvia));
+}
+
+/* Hacer ciencia hoy (ciencia.html) */
+.seccion-reflexion .bajada {
+    max-width: 820px;
+    margin-bottom: 26px;
+}
+
+.grilla-tarjetas.grilla-dos {
+    grid-template-columns: 1fr 1fr;
+}
+
+/* Texto de introducción dentro del bloque verde de servicios */
+.bajada-servicios {
+    max-width: 720px;
+    margin: -6px 0 26px;
+    color: var(--texto-claro);
+    font-size: 17px;
+}
+
 /* ICONO SOBRE EL TÍTULO DE UNA TARJETA */
 
 .icono-tarjeta {
@@ -309,6 +333,151 @@
     color: var(--verde-oscuro);
 }
 
+/* Campos del formulario de contacto (mismo estilo que login y registro) */
+.formulario-contacto {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.formulario-contacto .campo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.formulario-contacto .campo label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--verde-oscuro);
+}
+
+.formulario-contacto input,
+.formulario-contacto select,
+.formulario-contacto textarea {
+    width: 100%;
+    padding: 13px 16px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--texto);
+    background-color: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.formulario-contacto textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.formulario-contacto input:focus,
+.formulario-contacto select:focus,
+.formulario-contacto textarea:focus {
+    outline: none;
+    border-color: var(--verde);
+    box-shadow: 0 0 0 3px rgba(45, 74, 56, 0.12);
+}
+
+.formulario-contacto .fila-campos {
+    display: flex;
+    gap: 18px;
+}
+
+.formulario-contacto .fila-campos .campo {
+    flex: 1;
+}
+
+.formulario-contacto .error-campo,
+.formulario-contacto .error-formulario {
+    margin: 0;
+    color: var(--rojo);
+    font-size: 13px;
+}
+
+.formulario-contacto .error-campo:empty,
+.formulario-contacto .error-formulario:empty {
+    display: none;
+}
+
+.formulario-contacto .boton-principal {
+    align-self: flex-start;
+}
+
+/* Encabezado de contacto: texto a la izquierda, banner con el logo a la derecha */
+.encabezado-contacto {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.texto-encabezado {
+    flex: 1;
+}
+
+.imagen-encabezado-contacto {
+    flex-shrink: 0;
+    width: 42%;
+    aspect-ratio: 16 / 9;
+    border-radius: 28px;
+    background:
+        url('../images/bioLogoNaturaleza.jpg') center/cover no-repeat,
+        linear-gradient(140deg, var(--amarillo-claro), var(--verde-salvia));
+    box-shadow: 0 14px 30px rgba(31, 43, 35, 0.12);
+}
+
+/* Columna derecha de contacto: datos + imagen de marca */
+.columna-contacto {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 360px;
+}
+
+.columna-contacto .datos-contacto {
+    width: 100%;
+}
+
+.imagen-contacto {
+    display: block;
+    width: 100%;
+    border-radius: 22px;
+    border: 1px solid var(--borde);
+}
+
+/* ========================================
+   GALERÍAS DE FOTOS (nosotros y ciencia)
+   Las fotos están en static/images/galeria/
+======================================== */
+
+.grilla-galeria {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.foto-galeria {
+    margin: 0;
+    background-color: var(--blanco-tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+.foto-galeria img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.foto-galeria figcaption {
+    padding: 14px 18px;
+    color: var(--verde-oscuro);
+    font-size: 15px;
+    font-weight: 700;
+}
+
 /* ========================================
    ADAPTACIÓN A TABLETS
 ======================================== */
@@ -333,8 +502,31 @@
     }
 
     .formulario-contacto,
-    .datos-contacto {
+    .datos-contacto,
+    .columna-contacto {
         width: 100%;
+    }
+
+    .grilla-galeria {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .formulario-contacto .fila-campos {
+        flex-direction: column;
+    }
+
+    .grilla-tarjetas.grilla-dos {
+        grid-template-columns: 1fr;
+    }
+
+    .encabezado-contacto {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .imagen-encabezado-contacto {
+        width: 100%;
+        max-width: 560px;
     }
 }
 
@@ -377,5 +569,286 @@
     .seccion-servicios {
         width: calc(100% - 36px);
         padding: 30px 22px;
+    }
+}
+/* ========================================
+   MEJORAS DE CONTENIDO (nosotros y ciencia)
+   Textos largos resumidos en tarjetas,
+   línea de tiempo y desplegables "Leer más".
+======================================== */
+
+/* Párrafo de entrada, un poco más grande que el texto normal */
+.texto-lead {
+    margin-bottom: 22px;
+    color: var(--texto);
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* ---------- Línea de tiempo (Nuestra historia) ---------- */
+
+.seccion-historia {
+    align-items: stretch;
+}
+
+.seccion-historia .imagen-seccion {
+    min-height: 460px;
+}
+
+.linea-tiempo {
+    position: relative;
+    margin: 0 0 22px;
+    padding: 0;
+    list-style: none;
+}
+
+/* línea vertical que une los íconos */
+.linea-tiempo::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    bottom: 22px;
+    left: 21px;
+    width: 2px;
+    background-color: var(--verde-salvia);
+}
+
+.hito {
+    position: relative;
+    display: flex;
+    gap: 18px;
+    padding-bottom: 20px;
+}
+
+.hito:last-child {
+    padding-bottom: 0;
+}
+
+.icono-hito {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: var(--verde);
+    color: var(--amarillo);
+    border-radius: 50%;
+    font-size: 17px;
+}
+
+.hito h3 {
+    margin: 2px 0 4px;
+    color: var(--verde-oscuro);
+    font-size: 17px;
+}
+
+.hito p {
+    margin: 0;
+    color: var(--texto-suave);
+    font-size: 15px;
+}
+
+.nota-lineas {
+    display: inline-block;
+    margin: 0;
+    padding: 10px 16px;
+    background-color: var(--verde-claro);
+    color: var(--verde-oscuro);
+    border-radius: 30px;
+    font-size: 15px;
+}
+
+.nota-lineas i {
+    margin-right: 6px;
+    color: var(--verde);
+}
+
+/* ---------- Desplegable "Leer más" ---------- */
+
+.leer-mas {
+    margin-top: 6px;
+}
+
+.leer-mas summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--verde);
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    list-style: none;
+}
+
+.leer-mas summary::-webkit-details-marker {
+    display: none;
+}
+
+.leer-mas summary::after {
+    content: "+";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background-color: var(--amarillo-claro);
+    border-radius: 50%;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.leer-mas[open] summary::after {
+    content: "−";
+}
+
+.leer-mas p {
+    margin: 12px 0 0;
+    color: var(--texto-suave);
+    font-size: 15px;
+}
+
+/* ---------- Misión, visión y valores ---------- */
+
+.tarjeta-proposito {
+    display: flex;
+    flex-direction: column;
+}
+
+.frase-marca {
+    margin: 28px 0 0;
+    color: var(--verde);
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* ---------- Hacer ciencia hoy (bloque verde) ---------- */
+
+.seccion-reflexion {
+    width: calc(100% - 60px);
+    max-width: 1180px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 55px 50px;
+    background-color: var(--verde);
+    border-radius: 28px;
+}
+
+.seccion-reflexion .antetitulo {
+    color: var(--amarillo);
+}
+
+.cita-ciencia {
+    max-width: 860px;
+    margin: 0 0 30px;
+    padding-left: 22px;
+    border-left: 4px solid var(--amarillo);
+    color: var(--blanco);
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.grilla-reflexion {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* ---------- Economía circular ---------- */
+
+.seccion-circular .imagen-seccion {
+    min-height: 420px;
+}
+
+.grilla-erres {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.erre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 8px;
+    background-color: var(--blanco-tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    color: var(--verde-oscuro);
+    font-size: 14px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.erre i {
+    color: var(--naranja);
+    font-size: 22px;
+}
+
+.lista-beneficios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.lista-beneficios li {
+    padding: 6px 14px;
+    background-color: var(--verde-claro);
+    color: var(--verde-oscuro);
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* ---------- Adaptación a tablets y celulares ---------- */
+
+@media (max-width: 900px) {
+
+    .seccion-reflexion {
+        padding: 40px;
+    }
+
+    .cita-ciencia {
+        font-size: 24px;
+    }
+
+    .grilla-erres {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+
+    .seccion-reflexion {
+        width: calc(100% - 30px);
+        padding: 30px 22px;
+    }
+
+    .cita-ciencia {
+        font-size: 21px;
+    }
+
+    .grilla-reflexion {
+        grid-template-columns: 1fr;
+    }
+
+    .seccion-historia .imagen-seccion,
+    .seccion-circular .imagen-seccion {
+        min-height: 240px;
+    }
+
+    .frase-marca {
+        font-size: 20px;
     }
 }

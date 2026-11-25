@@ -116,7 +116,29 @@ a {
     white-space: nowrap;
 }
 
-/* El logo se carga desde static/images/logo.png */
+/* El logo se carga desde static/images/logo.png (en base.html) */
+.logo-imagen {
+    display: block;
+    height: 52px;
+    width: auto;
+}
+
+/* En el pie de página el fondo es verde oscuro, por eso el logo va sobre una placa clara */
+.logo-pie {
+    display: inline-flex;
+    align-self: flex-start;
+    width: fit-content;
+    padding: 10px 16px;
+    margin-bottom: 14px;
+    background-color: var(--crema);
+    border-radius: 14px;
+}
+
+.logo-pie .logo-imagen {
+    height: 64px;
+}
+
+/* (se mantiene por compatibilidad si algún template aún usa el ícono antiguo) */
 .logo-icono {
     width: 40px;
     height: 40px;
@@ -525,6 +547,54 @@ main section {
     color: var(--amarillo);
 }
 
+/* Proyecto apoyado por (ANID y CORFO) */
+.apoyo-pie {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding-top: 24px;
+    border-top: 1px solid var(--borde-oscuro);
+}
+
+.apoyo-pie p {
+    margin: 0;
+    color: var(--amarillo);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.logos-apoyo {
+    display: flex;
+    gap: 12px;
+}
+
+.seccion-pie a.logo-apoyo,
+.logo-apoyo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    padding: 6px;
+    background-color: var(--blanco);
+    border-radius: 14px;
+    transition: transform 0.2s ease;
+}
+
+.logo-apoyo:hover {
+    transform: translateY(-2px);
+}
+
+.logo-apoyo img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .derechos-pie {
     width: 100%;
     padding-top: 20px;
@@ -630,5 +700,15 @@ main section {
     .contenido-pie {
         flex-direction: column;
         gap: 25px;
+    }
+}
+/* Logo más compacto en celulares */
+@media (max-width: 650px) {
+    .logo-imagen {
+        height: 42px;
+    }
+
+    .logo-pie .logo-imagen {
+        height: 54px;
     }
 }
