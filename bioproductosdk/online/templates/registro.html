@@ -1,0 +1,54 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}Crear cuenta | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/cuenta.css' %}?v=4">
+{% endblock %}
+
+{% block content %}
+
+<div class="pagina-registro">
+    <section class="seccion-acceso">
+        <div class="tarjeta tarjeta-acceso">
+
+            <!-- PESTAÑAS -->
+            <div class="pestanas">
+                <a href="{% url 'login' %}" class="pestana">Iniciar sesión</a>
+                <a href="{% url 'registro' %}" class="pestana pestana-activa">Crear cuenta</a>
+            </div>
+
+            <p class="antetitulo">Registro de cliente</p>
+            <h1>Crea tu cuenta</h1>
+            <p class="bajada">Completa tus datos básicos para comprar y gestionar tus pedidos.</p>
+
+            <!-- FORMULARIO NATIVO DE DJANGO -->
+            <form method="post" action="{% url 'registro' %}" class="formulario">
+                {% csrf_token %}
+                
+                <!-- Errores generales del formulario -->
+                {{ form.non_field_errors }}
+
+                {% for field in form %}
+                    <div class="campo">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <p class="error-campo">{{ field.errors.0 }}</p>
+                        {% endif %}
+                        {% if field.help_text %}
+                            <small class="ayuda-campo" style="color: var(--texto-suave); font-size: 0.75rem;">{{ field.help_text|safe }}</small>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="boton-principal">Crear mi cuenta</button>
+            </form>
+
+            <p class="pie-acceso">¿Ya tienes cuenta? <a href="{% url 'login' %}">Iniciar sesión</a></p>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

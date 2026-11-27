@@ -1,0 +1,211 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}Nosotros | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/informacion.css' %}?v=4">
+{% endblock %}
+
+{% block content %}
+
+<!-- Los textos con class="texto-pendiente" (fondo amarillo) son de relleno:
+    los debe entregar los de diseño o las dueñas. Al reemplazarlos se quita esa clase. -->
+
+<div class="pagina-nosotros">
+
+    <!-- TÍTULO DE LA PÁGINA -->
+    <section class="encabezado-pagina">
+        <p class="antetitulo">La empresa</p>
+        <h1>Ciencia chilena para un <span class="texto-destacado">cuidado más limpio</span></h1>
+        <p class="bajada">Somos una empresa de base científico-tecnológica que desarrolla, produce y comercializa insumos funcionales y productos de cuidado personal y limpieza sustentables.</p>
+    </section>
+
+    <!-- HISTORIA (resumida en una línea de tiempo) -->
+    <section class="seccion-dividida seccion-historia">
+        <div class="texto-seccion">
+            <p class="antetitulo">Nuestra historia</p>
+            <h2>Innovación &amp; Sustentabilidad</h2>
+            <p class="texto-lead">Creamos productos de limpieza e higiene que limpian con alta eficiencia, pero no contaminan el planeta.</p>
+
+            <ol class="linea-tiempo">
+                <li class="hito">
+                    <span class="icono-hito"><i class="fas fa-seedling"></i></span>
+                    <div>
+                        <h3>Un sueño compartido</h3>
+                        <p>Dos mujeres empoderadas con la misión de cuidar el planeta y a todo ser vivo que lo habita.</p>
+                    </div>
+                </li>
+                <li class="hito">
+                    <span class="icono-hito"><i class="fas fa-lightbulb"></i></span>
+                    <div>
+                        <h3>2020 · En plena pandemia</h3>
+                        <p>Postulamos a un proyecto de innovación para crear detergentes a partir de residuos agroindustriales y nanotecnología.</p>
+                    </div>
+                </li>
+                <li class="hito">
+                    <span class="icono-hito"><i class="fas fa-flask"></i></span>
+                    <div>
+                        <h3>Nace Bioproductos DK SpA</h3>
+                        <p>Ganamos el fondo y creamos nuestros primeros detergentes con nanoemulsiones e ingredientes de origen vegetal.</p>
+                    </div>
+                </li>
+            </ol>
+
+            <p class="nota-lineas"><i class="fas fa-leaf"></i> Hoy trabajamos con dos líneas, <strong>Biorenua</strong> y <strong>Bioclar</strong>, bajo una misma marca.</p>
+        </div>
+        <!-- La foto se pone desde informacion.css (equipoTrabajo.jpg) -->
+        <div class="imagen-seccion imagen-equipo"></div>
+    </section>
+
+    <!-- GALERÍA DE PRODUCTOS (fotos en static/images/galeria/) -->
+    <section class="seccion-galeria">
+        <p class="antetitulo">Nuestros productos</p>
+        <h2>Lo que hacemos con nuestras manos</h2>
+
+        <div class="grilla-galeria">
+            <figure class="foto-galeria">
+                <img src="{% static 'images/galeria/detergentes.jpg' %}" alt="Detergente líquido concentrado BioProductos DK" loading="lazy">
+                <figcaption>Detergente líquido concentrado</figcaption>
+            </figure>
+            <figure class="foto-galeria">
+                <img src="{% static 'images/galeria/shampooSolido.jpg' %}" alt="Champú sólido Bio-Renua" loading="lazy">
+                <figcaption>Champú sólido Bio-Renua</figcaption>
+            </figure>
+            <figure class="foto-galeria">
+                <img src="{% static 'images/galeria/salesDeBano.jpg' %}" alt="Sales de baño" loading="lazy">
+                <figcaption>Sales de baño</figcaption>
+            </figure>
+            <figure class="foto-galeria">
+                <img src="{% static 'images/galeria/lineaCompleta.jpg' %}" alt="Línea completa de productos BioProductos DK" loading="lazy">
+                <figcaption>Nuestra línea completa</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- MISIÓN, VISIÓN Y VALORES (resumen visible + texto completo desplegable) -->
+    <section class="seccion-proposito">
+        <p class="antetitulo">Propósito</p>
+        <h2>Lo que nos mueve</h2>
+
+        <div class="grilla-tarjetas">
+            <div class="tarjeta tarjeta-proposito">
+                <i class="fas fa-leaf icono-tarjeta"></i>
+                <h3>Misión</h3>
+                <p>Desarrollar y comercializar productos de limpieza e higiene ecológicos, biodegradables, veganos y de calidad, para las personas, el hogar y la industria.</p>
+                <details class="leer-mas">
+                    <summary>Leer misión completa</summary>
+                    <p>Ser una empresa científico-tecnológica comprometida y alineada con el desarrollo y comercialización sustentable y sostenible de productos de limpieza e higiene ecológicos, innovadores, biodegradables, veganos y de calidad, que sean amigables con el medioambiente y que puedan satisfacer las necesidades de higiene personal, del hogar y de la industria.</p>
+                </details>
+            </div>
+            <div class="tarjeta tarjeta-proposito">
+                <i class="fas fa-eye icono-tarjeta"></i>
+                <h3>Visión</h3>
+                <p>Ser un referente en productos de limpieza e higiene ecológicos y un agente de cambio que masifique la cultura ecológica en Chile y el mundo.</p>
+                <details class="leer-mas">
+                    <summary>Leer visión completa</summary>
+                    <p>Consolidar a Bioproductos DK como una empresa responsable y con gran conciencia por el medioambiente, que fomenta la economía circular y la revalorización de desechos, y que además cumple con las necesidades de sus clientes, entregando productos ecológicos eficientes y de calidad para el cuidado personal, del hogar y de la industria, convirtiéndose en un referente dentro de las empresas comercializadoras y desarrolladoras de productos de limpieza e higiene.</p>
+                    <p>Por otro lado, ser un agente de cambio logrando masificar la cultura ecológica alrededor de Chile y el mundo.</p>
+                </details>
+            </div>
+            <div class="tarjeta tarjeta-proposito">
+                <i class="fas fa-recycle icono-tarjeta"></i>
+                <h3>Valores</h3>
+                <p>Rigor científico, economía circular y cuidado de las personas y del medioambiente.</p>
+            </div>
+        </div>
+
+        <p class="frase-marca">¡Porque con ciencia, es posible crear productos que cuiden el planeta!</p>
+    </section>
+
+    <!-- FUNDADORAS -->
+    <section class="seccion-equipo">
+        <p class="antetitulo">Las fundadoras</p>
+        <h2>Quiénes están detrás</h2>
+
+        <div class="grilla-fundadoras">
+            <div class="tarjeta-fundadora">
+                <!-- La foto se pone desde informacion.css (fundadoraSindy.jpg) -->
+                <div class="foto-fundadora foto-sindy"></div>
+                <div class="datos-fundadora">
+                    <h3>Sindy Devis R.</h3>
+                    <p class="cargo-fundadora">Fundadora · Administración</p>
+                    <p>Doctora en Química, Nanotecnología y Nanomateriales.</p>
+                </div>
+            </div>
+            <div class="tarjeta-fundadora">
+                <!-- La foto se pone desde informacion.css (fundadoraCarolina.jpg) -->
+                <div class="foto-fundadora foto-carolina"></div>
+                <div class="datos-fundadora">
+                    <h3>Carolina Klagges O.</h3>
+                    <p class="cargo-fundadora">Fundadora · Operaciones</p>
+                    <p>Doctora en Biotecnología, Genética Molecular Vegetal / Química Cosmética.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOGROS (copiar un bloque "logro" para agregar más) -->
+    <section class="seccion-logros">
+        <p class="antetitulo">Logros</p>
+        <h2>Lo que hemos conseguido</h2>
+
+        <div class="logro">
+            <p class="anio-logro">2020</p>
+            <div>
+                <h3>Fondo de innovación y nacimiento de Bioproductos DK SpA</h3>
+                <p>En plena pandemia nos adjudicamos un proyecto de innovación para desarrollar detergentes a partir de residuos agroindustriales y nanotecnología, con el que dimos inicio oficial a la empresa.</p>
+            </div>
+        </div>
+        <div class="logro">
+            <p class="anio-logro"><span class="texto-pendiente">Año</span></p>
+            <div>
+                <h3><span class="texto-pendiente">Nombre del logro o reconocimiento</span></h3>
+                <p><span class="texto-pendiente">Una o dos líneas: de qué se trata y quién lo otorgó.</span></p>
+            </div>
+        </div>
+        <div class="logro">
+            <p class="anio-logro"><span class="texto-pendiente">Año</span></p>
+            <div>
+                <h3><span class="texto-pendiente">Nombre del logro o reconocimiento</span></h3>
+                <p><span class="texto-pendiente">Una o dos líneas: de qué se trata y quién lo otorgó.</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICACIONES -->
+    <section class="seccion-certificaciones">
+        <p class="antetitulo">Certificaciones</p>
+        <h2>Respaldos y autorizaciones</h2>
+
+        <div class="grilla-tarjetas">
+            <div class="tarjeta">
+                <i class="fas fa-certificate icono-tarjeta"></i>
+                <h3>Autorización ISP</h3>
+                <p><span class="texto-pendiente">Confirmar: alcance de la autorización del Instituto de Salud Pública.</span></p>
+            </div>
+            <div class="tarjeta">
+                <i class="fas fa-certificate icono-tarjeta"></i>
+                <h3>Dermatológicamente testeados</h3>
+                <p><span class="texto-pendiente">Confirmar: qué productos fueron testeados y por qué laboratorio.</span></p>
+            </div>
+            <div class="tarjeta">
+                <i class="fas fa-certificate icono-tarjeta"></i>
+                <h3><span class="texto-pendiente">Otra certificación</span></h3>
+                <p><span class="texto-pendiente">Texto pendiente: nombre y descripción breve.</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN FINAL -->
+    <section class="seccion-final">
+        <div>
+            <h2>Conoce la ciencia detrás de cada producto</h2>
+            <p>Te contamos cómo un residuo orgánico termina convertido en un detergente o un champú.</p>
+        </div>
+        <a href="{% url 'ciencia' %}" class="boton-amarillo">Ir a Ciencia</a>
+    </section>
+
+</div>
+
+{% endblock %}
