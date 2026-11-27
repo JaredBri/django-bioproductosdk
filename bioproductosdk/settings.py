@@ -85,6 +85,47 @@ else:
     }
 }
 
+"""
+# ============================================================
+# CONFIGURACIÓN ALTERNATIVA: MongoDB (deshabilitada)
+# ============================================================
+# Opción A: django-mongodb-backend (backend oficial de MongoDB)
+# Instalación: pip install django-mongodb-backend
+# Requiere Django 5.x y reemplaza la configuración de PostgreSQL.
+#
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django_mongodb_backend",
+#         "NAME": "bioproductosdk",
+#         "HOST": "mongodb://localhost:27017",
+#         # Para MongoDB Atlas:
+#         # "HOST": "mongodb+srv://usuario:password@cluster.mongodb.net/",
+#     }
+# }
+#
+# DEFAULT_AUTO_FIELD = "django_mongodb_backend.fields.ObjectIdAutoField"
+
+# ------------------------------------------------------------
+# Opción B: Djongo
+# Instalación: pip install djongo
+# Compatible solo con versiones antiguas de Django (3.x).
+#
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "djongo",
+#         "NAME": "bioproductosdk",
+#         "ENFORCE_SCHEMA": False,
+#         "CLIENT": {
+#             "host": "localhost",
+#             "port": 27017,
+#             "username": "tu_usuario",
+#             "password": "tu_contraseña",
+#             "authSource": "admin",
+#             "authMechanism": "SCRAM-SHA-1",
+#         },
+#     }
+# }
+"""
     
 
 # Password validation
