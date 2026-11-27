@@ -1,4 +1,5 @@
 from pathlib import Path
+import dj_database_url
 import os
 import sys
 
@@ -17,7 +18,13 @@ SECRET_KEY = 'django-insecure-$ju%-c914jlm7pxha=j#xma&##!y^^yj9ov)ffl-oaat1oh052
 DEBUG = True
 
 ALLOWED_HOSTS = []
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
+CSRF_TRUSTED_ORIGINS = []
+if RENDER_EXTERNAL_HOSTNAME:
+    CSRF_TRUSTED_ORIGINS.append(f"https://{RENDER_EXTERNAL_HOSTNAME}")
 
 # Application definition
 
@@ -34,6 +41,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -73,6 +81,15 @@ if 'test' in sys.argv:
             'NAME': BASE_DIR / 'test_db.sqlite3',
         }
     }
+    #LINEA MODIFICADA
+elif os.environ.get('DATABASE_URL'):
+    DATABASES = {
+        'default': dj_database_url.config(
+            conn_max_age=600,
+            ssl_require=True,
+        )
+    }
+    #
 else:
     DATABASES = {
     "default":{
@@ -164,6 +181,18 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# LINEAS MODIFICADAS
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STORAGE = {
+    "default":{
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles":{
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    }
+}
+#
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
