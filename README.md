@@ -44,7 +44,7 @@
 |---|---|
 | **Backend** | Python, Django, Django REST Framework |
 | **Frontend** | Plantillas Django (MVT), HTML5, CSS3 |
-| **Base de datos** | SQLite (desarrollo) |
+| **Base de datos** | PostgreSQL  |
 | **Medios** | Django `MEDIA` para imágenes de productos |
 | **Testing** | Django Test Framework (`manage.py test`) |
 | **Arquitectura** | MVT + API REST |
