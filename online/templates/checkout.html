@@ -1,0 +1,196 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}Finalizar compra | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/carrito.css' %}?v=5">
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}?v=1">
+{% endblock %}
+
+{% block content %}
+<div class="pagina-checkout">
+
+    <!-- Indicador de pasos -->
+    <nav class="pasos-compra" aria-label="Pasos del proceso de compra">
+        <ol>
+            <li class="paso-completado"><span>1</span> Carrito</li>
+            <li class="paso-activo"><span>2</span> Pago</li>
+            <li class="paso-pendiente"><span>3</span> Confirmación</li>
+        </ol>
+    </nav>
+
+    <section class="encabezado-pagina">
+        <p class="antetitulo">Último paso</p>
+        <h1>Finalizar compra</h1>
+        <p class="bajada">Confirma tus datos, elige cómo pagar y completa tu pedido.</p>
+    </section>
+
+    <div class="grilla-checkout">
+
+        <!-- ── COLUMNA IZQUIERDA: datos + método de pago ── -->
+        <div class="columna-checkout-principal">
+
+            <!-- Datos de envío -->
+            <div class="tarjeta seccion-checkout">
+                <h2><i class="fas fa-map-marker-alt"></i> Datos de entrega</h2>
+                {% if perfil %}
+                <dl class="ficha-datos-entrega">
+                    <div class="fila-dato">
+                        <dt>Nombre</dt>
+                        <dd>{{ user.get_full_name|default:user.username }}</dd>
+                    </div>
+                    <div class="fila-dato">
+                        <dt>Correo</dt>
+                        <dd>{{ user.email }}</dd>
+                    </div>
+                    {% if perfil.telefono %}
+                    <div class="fila-dato">
+                        <dt>Teléfono</dt>
+                        <dd>{{ perfil.telefono }}</dd>
+                    </div>
+                    {% endif %}
+                    {% if perfil.direccion %}
+                    <div class="fila-dato">
+                        <dt>Dirección</dt>
+                        <dd>{{ perfil.direccion }}{% if perfil.comuna %}, {{ perfil.comuna }}{% endif %}</dd>
+                    </div>
+                    {% endif %}
+                    {% if perfil.region %}
+                    <div class="fila-dato">
+                        <dt>Región</dt>
+                        <dd>{{ perfil.region }}</dd>
+                    </div>
+                    {% endif %}
+                    <div class="fila-dato">
+                        <dt>Envío</dt>
+                        <dd>{{ carrito.get_tipo_envio_display }}</dd>
+                    </div>
+                </dl>
+                {% if not perfil.direccion or not perfil.telefono %}
+                <p class="aviso-datos-incompletos">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Algunos datos de entrega están incompletos.
+                    <a href="{% url 'editarPerfil' %}">Completar perfil</a>
+                </p>
+                {% endif %}
+                {% else %}
+                <p class="aviso-datos-incompletos">
+                    <i class="fas fa-exclamation-circle"></i>
+                    No tienes datos de perfil guardados.
+                    <a href="{% url 'editarPerfil' %}">Completar perfil</a> antes de continuar.
+                </p>
+                {% endif %}
+            </div>
+
+            <!-- Método de pago -->
+            <div class="tarjeta seccion-checkout">
+                <h2><i class="fas fa-credit-card"></i> Método de pago</h2>
+                <p class="nota-simulacion">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Modo simulación:</strong> no se realizará ningún cobro real.
+                    Elige un método y presiona "Confirmar pedido" para ver la confirmación.
+                </p>
+
+                <form id="form-pago" method="post" action="{% url 'procesarPago' %}">
+                    {% csrf_token %}
+
+                    <fieldset class="opciones-pago">
+                        <legend class="sr-only">Selecciona método de pago</legend>
+
+                        <label class="opcion-pago">
+                            <input type="radio" name="metodo_pago" value="transferencia" required>
+                            <span class="tarjeta-pago">
+                                <i class="fas fa-university"></i>
+                                <strong>Transferencia bancaria</strong>
+                                <small>Banco BCI · Cta. Cte. 123-456-78</small>
+                            </span>
+                        </label>
+
+                        <label class="opcion-pago">
+                            <input type="radio" name="metodo_pago" value="debito">
+                            <span class="tarjeta-pago">
+                                <i class="fas fa-credit-card"></i>
+                                <strong>Tarjeta de débito</strong>
+                                <small>Visa / Mastercard Débito</small>
+                            </span>
+                        </label>
+
+                        <label class="opcion-pago">
+                            <input type="radio" name="metodo_pago" value="credito">
+                            <span class="tarjeta-pago">
+                                <i class="fas fa-credit-card"></i>
+                                <strong>Tarjeta de crédito</strong>
+                                <small>Visa / Mastercard · hasta 12 cuotas sin interés</small>
+                            </span>
+                        </label>
+
+                        <label class="opcion-pago">
+                            <input type="radio" name="metodo_pago" value="simulado" checked>
+                            <span class="tarjeta-pago">
+                                <i class="fas fa-flask"></i>
+                                <strong>Pago de prueba (simulado)</strong>
+                                <small>Solo para demostración — sin pasarela real</small>
+                            </span>
+                        </label>
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- ── COLUMNA DERECHA: resumen ── -->
+        <aside class="columna-checkout-resumen">
+            <div class="tarjeta resumen-checkout">
+                <h2>Tu pedido</h2>
+
+                <ul class="lista-resumen-checkout">
+                    {% for item in items %}
+                    <li class="item-resumen">
+                        <span class="nombre-resumen">
+                            {{ item.producto.nombre }}
+                            <small class="cantidad-resumen">× {{ item.cantidad }}</small>
+                        </span>
+                        <span class="precio-resumen">${{ item.subtotal|floatformat:"0g" }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="desglose-carrito">
+                    <p class="fila-resumen">
+                        <span>Subtotal</span>
+                        <strong>${{ subtotal|floatformat:"0g" }}</strong>
+                    </p>
+                    <p class="fila-resumen">
+                        <span>IVA incluido ({{ porcentajeIva }}%)</span>
+                        <span>${{ iva|floatformat:"0g" }}</span>
+                    </p>
+                    <p class="fila-resumen">
+                        <span>Despacho ({{ carrito.get_tipo_envio_display }})</span>
+                        <strong>{% if costoDespacho == 0 %}Gratis{% else %}${{ costoDespacho|floatformat:"0g" }}{% endif %}</strong>
+                    </p>
+                    <p class="fila-resumen fila-total">
+                        <span>Total a pagar</span>
+                        <strong class="precio-total-checkout">${{ total|floatformat:"0g" }}</strong>
+                    </p>
+                </div>
+
+                <div class="acciones-checkout">
+                    <a href="{% url 'carrito' %}" class="boton-secundario boton-ancho">
+                        <i class="fas fa-arrow-left"></i> Volver al carrito
+                    </a>
+                    <button type="submit" form="form-pago" class="boton-principal boton-ancho boton-confirmar">
+                        <i class="fas fa-lock"></i> Confirmar pedido
+                    </button>
+                </div>
+
+                <p class="aviso-seguridad">
+                    <i class="fas fa-shield-alt"></i>
+                    Tus datos están protegidos. Compra 100 % segura.
+                </p>
+            </div>
+        </aside>
+
+    </div>
+</div>
+{% endblock %}

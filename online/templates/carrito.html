@@ -1,0 +1,137 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}Tu carrito | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/carrito.css' %}?v=5">
+{% endblock %}
+
+{% block content %}
+
+<div class="pagina-carrito">
+
+    <section class="encabezado-pagina">
+        <p class="antetitulo">Compra consciente</p>
+        <h1>Tu carrito</h1>
+        <p class="bajada">Revisa tus productos, ajusta las cantidades y elige tu modalidad de envío.</p>
+    </section>
+
+    <section class="seccion-carrito">
+        {% if items %}
+        <div class="grilla-carrito">
+
+            <!-- LISTA DE ÍTEMS -->
+            <div class="lista-items-carrito">
+                {% for item in items %}
+                <article class="tarjeta item-carrito">
+                    <a href="{% url 'detalleProducto' item.producto.id %}" class="imagen-item-carrito">
+                        {% if item.producto.imagen %}
+                        <img src="{{ item.producto.imagen.url }}" alt="{{ item.producto.nombre }}">
+                        {% else %}
+                        <span class="sin-imagen-carrito"><i class="fas fa-leaf"></i></span>
+                        {% endif %}
+                    </a>
+
+                    <div class="info-item-carrito">
+                        <p class="marca-producto">{{ item.producto.marca }}</p>
+                        <h3><a href="{% url 'detalleProducto' item.producto.id %}">{{ item.producto.nombre }}</a></h3>
+                        <p class="precio-unitario">Precio unitario: ${{ item.producto.precio|floatformat:"0g" }}</p>
+                        <p class="stock-item">Stock disponible: {{ item.producto.stock }}</p>
+                    </div>
+
+                    <div class="acciones-item-carrito">
+                        <form method="post" action="{% url 'actualizarCarrito' item.id %}" class="form-cantidad-carrito">
+                            {% csrf_token %}
+                            <label for="cantidad-{{ item.id }}" class="sr-only">Cantidad de {{ item.producto.nombre }}</label>
+                            <input
+                                type="number"
+                                id="cantidad-{{ item.id }}"
+                                name="cantidad"
+                                value="{{ item.cantidad }}"
+                                min="1"
+                                max="{{ item.producto.stock }}"
+                                class="campo-cantidad-carrito"
+                            >
+                            <button type="submit" class="boton-secundario boton-chico">Actualizar</button>
+                        </form>
+
+                        <p class="subtotal-item">${{ item.subtotal|floatformat:"0g" }}</p>
+
+                        <form method="post" action="{% url 'eliminarCarrito' item.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="boton-eliminar-carrito" title="Eliminar producto">
+                                <i class="fas fa-trash-alt"></i> Quitar
+                            </button>
+                        </form>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+
+            <!-- RESUMEN Y ENVÍO -->
+            <aside class="tarjeta resumen-carrito">
+                <h2>Resumen del pedido</h2>
+
+                <form method="post" action="{% url 'carrito' %}" class="form-envio-carrito">
+                    {% csrf_token %}
+                    <label for="tipo_envio">Modalidad de envío</label>
+                    <select id="tipo_envio" name="tipo_envio" onchange="this.form.submit()">
+                        {% for valor, etiqueta in tiposEnvio %}
+                        <option value="{{ valor }}" {% if carrito.tipo_envio == valor %}selected{% endif %}>{{ etiqueta }}</option>
+                        {% endfor %}
+                    </select>
+                    <noscript>
+                        <button type="submit" class="boton-secundario boton-chico">Aplicar envío</button>
+                    </noscript>
+                </form>
+
+                <div class="desglose-carrito">
+                    <p class="fila-resumen">
+                        <span>Subtotal productos</span>
+                        <strong>${{ subtotal|floatformat:"0g" }}</strong>
+                    </p>
+                    <p class="fila-resumen">
+                        <span>IVA incluido ({{ porcentajeIva }}%)</span>
+                        <span>${{ iva|floatformat:"0g" }}</span>
+                    </p>
+                    <p class="fila-resumen">
+                        <span>Despacho ({% if carrito %}{{ carrito.get_tipo_envio_display }}{% else %}Retiro en tienda{% endif %})</span>
+                        <strong>{% if costoDespacho == 0 %}Gratis{% else %}${{ costoDespacho|floatformat:"0g" }}{% endif %}</strong>
+                    </p>
+                    <p class="fila-resumen fila-total">
+                        <span>Total</span>
+                        <strong>${{ total|floatformat:"0g" }}</strong>
+                    </p>
+                </div>
+
+                <div class="contenedor-boton-carrito">
+                    <a href="{% url 'tienda' %}" class="boton-secundario">Seguir comprando</a>
+                    {% if not user.is_authenticated %}
+                    <a href="{% url 'login' %}?next={% url 'checkout' %}" class="boton-principal">
+                        <i class="fas fa-lock"></i> Iniciar sesión para pagar
+                    </a>
+                    {% else %}
+                    <a href="{% url 'checkout' %}" class="boton-principal boton-pagar">
+                        <i class="fas fa-credit-card"></i> Ir a pagar
+                    </a>
+                    {% endif %}
+                </div>
+            </aside>
+
+        </div>
+        {% else %}
+        <div class="tarjeta carrito-vacio">
+            <i class="fas fa-shopping-bag icono-carrito-vacio"></i>
+            <h2>Tu carrito está vacío</h2>
+            <p>Explora nuestros bio-detergentes y productos de cuidado personal sustentables.</p>
+            <div class="contenedor-boton">
+                <a href="{% url 'tienda' %}" class="boton-principal">Ir a la tienda</a>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+
+</div>
+
+{% endblock %}

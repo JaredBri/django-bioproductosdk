@@ -1,0 +1,184 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}Ciencia | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/informacion.css' %}?v=5">
+{% endblock %}
+
+{% block content %}
+
+<!-- Las explicaciones son generales: lo ideal es que las dueñas deben
+    validarlas y completar los textos con class="texto-pendiente" (fondo amarillo). -->
+
+<div class="pagina-ciencia">
+
+    <!-- TÍTULO DE LA PÁGINA -->
+    <section class="encabezado-pagina">
+        <p class="antetitulo">Ciencia</p>
+        <h1>La ciencia que hay <span class="texto-destacado">dentro del envase</span></h1>
+        <p class="bajada">Usamos biotecnología y nanotecnología verde para recuperar lo valioso de los residuos orgánicos y convertirlo en ingredientes para limpieza y cuidado personal.</p>
+    </section>
+
+    <!-- NANOTECNOLOGÍA VERDE -->
+    <section class="seccion-dividida">
+        <!-- La foto se pone desde informacion.css (nanotecnologia.jpg) -->
+        <div class="imagen-seccion imagen-nanotecnologia"></div>
+        <div class="texto-seccion">
+            <p class="antetitulo">Nanotecnología verde</p>
+            <h2>Trabajar a escala diminuta, sin químicos agresivos</h2>
+            <p>La nanotecnología trabaja con partículas miles de veces más pequeñas que el grosor de un cabello. A esa escala, los ingredientes activos se reparten mejor y hacen falta en menor cantidad.</p>
+            <p>Se llama <strong>verde</strong> cuando esas partículas se obtienen con extractos vegetales y procesos de bajo impacto, en lugar de reactivos tóxicos.</p>
+            <p><span class="texto-pendiente">Texto pendiente: qué activos usa la empresa y qué beneficio aportan.</span></p>
+        </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="seccion-proceso">
+        <p class="antetitulo">Nuestro proceso</p>
+        <h2>De residuo a producto, en cuatro pasos</h2>
+
+        <div class="grilla-pasos">
+            <div class="paso">
+                <span class="numero-paso">01</span>
+                <h3>Recuperación</h3>
+                <p>Recibimos residuos orgánicos que de otro modo se desecharían y seleccionamos los que sirven como materia prima.</p>
+            </div>
+            <div class="paso">
+                <span class="numero-paso">02</span>
+                <h3>Extracción</h3>
+                <p>Con procesos biotecnológicos obtenemos extractos vegetales, aceites esenciales y otros compuestos activos.</p>
+            </div>
+            <div class="paso">
+                <span class="numero-paso">03</span>
+                <h3>Nanotecnología verde</h3>
+                <p>Potenciamos esos activos a escala nanométrica para que rindan más, por ejemplo en su acción antimicrobiana.</p>
+            </div>
+            <div class="paso">
+                <span class="numero-paso">04</span>
+                <h3>Formulación</h3>
+                <p>Los integramos en fórmulas biodegradables: detergentes, champú sólido, sales de baño y más.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- INVESTIGACIÓN -->
+    <section class="seccion-dividida">
+        <div class="texto-seccion">
+            <p class="antetitulo">I+D+i</p>
+            <h2>Investigación, desarrollo e innovación</h2>
+            <p>Cada producto parte de una pregunta de investigación. Probamos, medimos y ajustamos las fórmulas antes de que lleguen a la tienda.</p>
+            <p>Nuestros primeros detergentes nacieron de residuos orgánicos optimizados mediante nanoemulsiones, combinados con una selección de ingredientes sustentables y de origen vegetal.</p>
+        </div>
+        <!-- La foto se pone desde informacion.css (laboratorio.jpg) -->
+        <div class="imagen-seccion imagen-laboratorio"></div>
+    </section>
+
+    <!-- HACER CIENCIA HOY (bloque verde con cita) -->
+    <section class="seccion-reflexion">
+        <p class="antetitulo">Hacer ciencia hoy</p>
+        <blockquote class="cita-ciencia">
+            Significa más que generar conocimiento: es usarlo para resolver desafíos reales y construir un futuro más sostenible.
+        </blockquote>
+
+        <div class="grilla-reflexion">
+            <div class="paso">
+                <i class="fas fa-lightbulb icono-tarjeta"></i>
+                <h3>Nuestra motivación</h3>
+                <p>Transformar la ciencia en impacto: soluciones reales que salen del laboratorio.</p>
+            </div>
+            <div class="paso">
+                <i class="fas fa-globe-americas icono-tarjeta"></i>
+                <h3>Nuestra mirada</h3>
+                <p>La ciencia y la química valen más cuando se convierten en una herramienta para cuidar a todos los seres vivos y al planeta.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ECONOMÍA CIRCULAR (resumen + 4 principios + explicación desplegable) -->
+    <section class="seccion-dividida seccion-circular">
+        <!-- La foto se pone desde informacion.css (economiaCircular.jpg) -->
+        <div class="imagen-seccion imagen-economia-circular"></div>
+        <div class="texto-seccion">
+            <p class="antetitulo">Economía circular</p>
+            <h2>Eliminar la basura desde el diseño</h2>
+            <p class="texto-lead">Reutilizamos y revalorizamos materiales en cada etapa: diseño, formulación, producción y venta.</p>
+
+            <div class="grilla-erres">
+                <div class="erre"><i class="fas fa-compress-alt"></i><span>Reducir</span></div>
+                <div class="erre"><i class="fas fa-redo"></i><span>Reutilizar</span></div>
+                <div class="erre"><i class="fas fa-recycle"></i><span>Reciclar</span></div>
+                <div class="erre"><i class="fas fa-seedling"></i><span>Regenerar</span></div>
+            </div>
+
+            <details class="leer-mas">
+                <summary>¿Qué es la economía circular?</summary>
+                <p>Es un modelo que busca reducir el impacto ambiental de la producción y el consumo, evitando la generación de basura y la contaminación.</p>
+                <p>Los materiales biodegradables vuelven a la naturaleza; los no biodegradables se mantienen en el ciclo productivo gracias al diseño, la reparación y la innovación.</p>
+                <ul class="lista-beneficios">
+                    <li>Ahorro de energía y materias primas</li>
+                    <li>Creación de empleo</li>
+                    <li>Mejor salud y calidad de vida</li>
+                    <li>Protección del clima y la biodiversidad</li>
+                </ul>
+            </details>
+        </div>
+    </section>
+
+    <!-- GALERÍA DEL LABORATORIO (fotos en static/images/galeria/) -->
+    <section class="seccion-galeria">
+        <p class="antetitulo">Nuestro laboratorio</p>
+        <h2>Donde nace cada fórmula</h2>
+
+        <div class="grilla-galeria">
+            <figure class="foto-galeria">
+                <img src="{% static 'images/galeria/materiaPrima.jpg' %}" alt="Materia prima obtenida a partir de residuos orgánicos" loading="lazy">
+                <figcaption>Materia prima revalorizada</figcaption>
+            </figure>
+            <figure class="foto-galeria">
+                <img src="{% static 'images/galeria/secado.jpg' %}" alt="Equipo de secado en el laboratorio" loading="lazy">
+                <figcaption>Secado y procesamiento</figcaption>
+            </figure>
+            <figure class="foto-galeria">
+                <img src="{% static 'images/galeria/procesadorUltrasonico.jpg' %}" alt="Procesador ultrasónico del laboratorio" loading="lazy">
+                <figcaption>Procesador ultrasónico</figcaption>
+            </figure>
+            <figure class="foto-galeria">
+                <img src="{% static 'images/galeria/materialLaboratorio.jpg' %}" alt="Material de vidrio de laboratorio" loading="lazy">
+                <figcaption>Investigación y control de calidad</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="seccion-preguntas">
+        <p class="antetitulo">Preguntas frecuentes</p>
+        <h2>Lo que más nos preguntan</h2>
+
+        <details class="pregunta">
+            <summary>¿Qué significa que un producto sea biodegradable?</summary>
+            <p>Que sus ingredientes se descomponen por acción de microorganismos y no se acumulan en el agua ni en el suelo.</p>
+        </details>
+        <details class="pregunta">
+            <summary>¿Son seguros los productos con nanotecnología?</summary>
+            <p><span class="texto-pendiente">Texto pendiente: respuesta de la empresa, con los ensayos que la respaldan.</span></p>
+        </details>
+        <details class="pregunta">
+            <summary>¿De dónde vienen los residuos orgánicos que usan?</summary>
+            <p><span class="texto-pendiente">Texto pendiente: origen de los residuos y con quiénes trabajan.</span></p>
+        </details>
+    </section>
+
+    <!-- SECCIÓN FINAL -->
+    <section class="seccion-final">
+        <div>
+            <h2>Pruébalo en tu casa</h2>
+            <p>Todo esto termina en productos que puedes usar hoy.</p>
+        </div>
+        <a href="{% url 'tienda' %}" class="boton-amarillo">Ir a la tienda</a>
+    </section>
+
+</div>
+
+{% endblock %}

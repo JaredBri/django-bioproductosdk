@@ -1,0 +1,95 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}Tienda | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/tienda.css' %}?v=5">
+{% endblock %}
+
+{% block content %}
+
+<div class="pagina-tienda">
+
+    <!-- TÍTULO DE LA PÁGINA -->
+    <section class="encabezado-pagina">
+        <p class="antetitulo">Líneas de productos</p>
+        <h1>Tienda</h1>
+        <p class="bajada">Productos de limpieza y cuidado personal hechos con biotecnología verde. Toca un producto para ver su ficha.</p>
+    </section>
+
+    <section class="seccion-catalogo">
+
+        <!-- FILTROS Y BUSCADOR -->
+        <div class="barra-filtros">
+            <div class="filtros">
+                <a href="{% url 'tienda' %}" class="filtro {% if not categoriaActual %}filtro-activo{% endif %}">Todos</a>
+                {% for cat in categorias %}
+                <a href="{% url 'tiendaCategoria' cat.nombre %}" class="filtro {% if cat.nombre == categoriaActual %}filtro-activo{% endif %}">{{ cat.nombre }}</a>
+                {% endfor %}
+            </div>
+
+            <form method="get" action="{% url 'tienda' %}" class="buscador" role="search">
+                <label for="busqueda-tienda" class="sr-only">Buscar productos</label>
+                <input type="search" id="busqueda-tienda" name="busqueda" placeholder="Buscar productos..." value="{{ busqueda }}">
+                {% if busqueda %}
+                <a href="{% url 'tienda' %}" class="limpiar-busqueda" title="Limpiar búsqueda" aria-label="Limpiar búsqueda"><i class="fas fa-times" aria-hidden="true"></i></a>
+                {% endif %}
+                <button type="submit" title="Buscar" aria-label="Buscar"><i class="fas fa-search" aria-hidden="true"></i></button>
+            </form>
+        </div>
+
+        <!-- PRODUCTOS -->
+        <div class="grilla-productos">
+            {% for producto in productos %}
+            <div class="tarjeta-producto">
+                <a href="{% url 'detalleProducto' producto.id %}" class="imagen-producto">
+                    {% if producto.imagen %}
+                    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" loading="lazy">
+                    {% else %}
+                    <span class="imagen-producto-vacia"><i class="fas fa-leaf" aria-hidden="true"></i></span>
+                    {% endif %}
+                </a>
+                <div class="datos-producto">
+                    <p class="marca-producto">{{ producto.marca }}</p>
+                    <h3><a href="{% url 'detalleProducto' producto.id %}">{{ producto.nombre }}</a></h3>
+                    <p>{{ producto.descripcion|truncatechars:70 }}</p>
+                    <div class="meta-producto">
+                        {% if producto.medida %}
+                        <span class="chip-meta">{{ producto.medida|floatformat:"-2" }} {{ producto.unidad }}</span>
+                        {% endif %}
+                        {% if producto.stock > 0 %}
+                        <span class="chip-meta chip-stock">Stock: {{ producto.stock }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="pie-producto">
+                        <span class="precio">${{ producto.precio|floatformat:"0g" }}</span>
+                        {% if producto.stock > 0 %}
+                        <form method="post" action="{% url 'agregarCarrito' producto.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="boton-agregar" title="Agregar al carrito" aria-label="Agregar {{ producto.nombre }} al carrito">
+                                <i class="fas fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                        {% else %}
+                        <span class="etiqueta-agotado">Agotado</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="aviso-vacio">
+                <h3>No encontramos productos</h3>
+                <p>Prueba con otra categoría o revisa cómo escribiste la búsqueda.</p>
+                <div class="contenedor-boton">
+                    <a href="{% url 'tienda' %}" class="boton-principal">Ver todos los productos</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

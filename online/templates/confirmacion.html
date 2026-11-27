@@ -1,0 +1,104 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}Pedido confirmado | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}?v=1">
+{% endblock %}
+
+{% block content %}
+<div class="pagina-confirmacion">
+
+    <!-- Indicador de pasos -->
+    <nav class="pasos-compra" aria-label="Pasos del proceso de compra">
+        <ol>
+            <li class="paso-completado"><span>1</span> Carrito</li>
+            <li class="paso-completado"><span>2</span> Pago</li>
+            <li class="paso-activo"><span>3</span> Confirmación</li>
+        </ol>
+    </nav>
+
+    <section class="zona-confirmacion">
+        <div class="icono-exito">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h1>¡Pedido recibido!</h1>
+        <p class="bajada">Gracias por tu compra en <strong>BioProductos DK</strong>. Contribuyes a la economía circular y al cuidado del planeta. 🌿</p>
+
+        <div class="tarjeta numero-pedido-card">
+            <p class="etiqueta-numero">Número de pedido</p>
+            <p class="numero-pedido">{{ numero_pedido }}</p>
+            <p class="detalle-pago">
+                Método: <strong>
+                    {% if metodo_pago == 'transferencia' %}Transferencia bancaria
+                    {% elif metodo_pago == 'debito' %}Tarjeta de débito
+                    {% elif metodo_pago == 'credito' %}Tarjeta de crédito
+                    {% else %}Pago de prueba (simulado)
+                    {% endif %}
+                </strong> &nbsp;·&nbsp;
+                Envío: <strong>{{ tipo_envio }}</strong>
+            </p>
+        </div>
+
+        <!-- Detalle de lo comprado -->
+        <div class="tarjeta detalle-confirmacion">
+            <h2>Productos comprados</h2>
+            <ul class="lista-resumen-checkout">
+                {% for item in items %}
+                <li class="item-resumen">
+                    <span class="nombre-resumen">
+                        {{ item.producto.nombre }}
+                        <small class="cantidad-resumen">× {{ item.cantidad }}</small>
+                    </span>
+                    <span class="precio-resumen">${{ item.subtotal|floatformat:"0g" }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <div class="desglose-carrito">
+                <p class="fila-resumen">
+                    <span>Subtotal</span>
+                    <strong>${{ subtotal|floatformat:"0g" }}</strong>
+                </p>
+                <p class="fila-resumen">
+                    <span>IVA incluido ({{ porcentajeIva }}%)</span>
+                    <span>${{ iva|floatformat:"0g" }}</span>
+                </p>
+                <p class="fila-resumen">
+                    <span>Despacho</span>
+                    <strong>{% if costoDespacho == 0 %}Gratis{% else %}${{ costoDespacho|floatformat:"0g" }}{% endif %}</strong>
+                </p>
+                <p class="fila-resumen fila-total">
+                    <span>Total pagado</span>
+                    <strong class="precio-total-checkout">${{ total|floatformat:"0g" }}</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- Próximos pasos -->
+        <div class="tarjeta proximos-pasos">
+            <h2>¿Qué sigue?</h2>
+            <ol class="lista-pasos-info">
+                <li><i class="fas fa-envelope"></i> Recibirás un correo de confirmación en <strong>{{ user.email }}</strong></li>
+                <li><i class="fas fa-box"></i> Tu pedido se preparará en 1–2 días hábiles</li>
+                <li><i class="fas fa-truck"></i>
+                    {% if tipo_envio == 'Retiro en tienda' %}Lo tendrás listo para retirar en nuestra tienda
+                    {% elif 'Express' in tipo_envio %}Despacho express: entrega en 24–48 h
+                    {% else %}Despacho estándar: entrega en 3–5 días hábiles{% endif %}
+                </li>
+            </ol>
+        </div>
+
+        <div class="acciones-confirmacion">
+            <a href="{% url 'tienda' %}" class="boton-principal">
+                <i class="fas fa-leaf"></i> Seguir comprando
+            </a>
+            <a href="{% url 'inicio' %}" class="boton-secundario">
+                <i class="fas fa-home"></i> Volver al inicio
+            </a>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

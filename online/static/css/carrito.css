@@ -1,0 +1,236 @@
+/* ========================================
+   CARRITO DE COMPRAS
+   Usa las variables de base.css.
+======================================== */
+
+.grilla-carrito {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 24px;
+    align-items: start;
+}
+
+.lista-items-carrito {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.item-carrito {
+    display: grid;
+    grid-template-columns: 104px 1fr auto;
+    gap: 20px;
+    align-items: center;
+}
+
+.imagen-item-carrito {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 104px;
+    height: 104px;
+    background-color: var(--amarillo-claro);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.imagen-item-carrito img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sin-imagen-carrito {
+    color: var(--verde);
+    font-size: 28px;
+}
+
+.info-item-carrito h3 {
+    margin: 4px 0 6px;
+    font-size: 18px;
+}
+
+.info-item-carrito h3 a {
+    color: var(--verde-oscuro);
+    text-decoration: none;
+}
+
+.info-item-carrito .precio-unitario,
+.info-item-carrito .stock-item {
+    margin: 2px 0;
+    font-size: 14px;
+    color: var(--texto-suave);
+}
+
+.acciones-item-carrito {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.form-cantidad-carrito {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.campo-cantidad-carrito {
+    width: 72px;
+    padding: 8px 10px;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    background-color: var(--blanco);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.boton-chico {
+    padding: 8px 14px;
+    font-size: 13px;
+}
+
+.subtotal-item {
+    margin: 0;
+    color: var(--verde-oscuro);
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.boton-eliminar-carrito {
+    background: none;
+    border: none;
+    color: var(--rojo);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.boton-eliminar-carrito:hover {
+    text-decoration: underline;
+}
+
+/* RESUMEN */
+.resumen-carrito h2 {
+    font-size: 24px;
+    margin-bottom: 18px;
+}
+
+.form-envio-carrito {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.form-envio-carrito label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--verde-oscuro);
+}
+
+.form-envio-carrito select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    background-color: var(--blanco);
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--texto);
+}
+
+.desglose-carrito {
+    border-top: 1px solid var(--borde);
+    padding-top: 16px;
+}
+
+.fila-resumen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0;
+    color: var(--texto-suave);
+    font-size: 15px;
+}
+
+.fila-total {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--borde);
+    color: var(--verde-oscuro);
+    font-size: 20px;
+}
+
+.contenedor-boton-carrito {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.contenedor-boton-carrito .boton-principal,
+.contenedor-boton-carrito .boton-secundario {
+    text-align: center;
+    width: 100%;
+}
+
+/* CARRITO VACÍO */
+.carrito-vacio {
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 44px 30px;
+}
+
+.icono-carrito-vacio {
+    font-size: 48px;
+    color: var(--verde);
+    margin-bottom: 14px;
+}
+
+.carrito-vacio .contenedor-boton {
+    justify-content: center;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+@media (max-width: 900px) {
+    .grilla-carrito {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .item-carrito {
+        grid-template-columns: 80px 1fr;
+    }
+
+    .imagen-item-carrito {
+        width: 80px;
+        height: 80px;
+    }
+
+    .acciones-item-carrito {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid var(--borde);
+        padding-top: 12px;
+    }
+}

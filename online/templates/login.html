@@ -1,0 +1,59 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}Iniciar sesión | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/cuenta.css' %}?v=5">
+{% endblock %}
+
+{% block content %}
+
+<div class="pagina-login">
+
+    <section class="seccion-acceso">
+        <div class="tarjeta tarjeta-acceso">
+
+            <!-- PESTAÑAS -->
+            <div class="pestanas">
+                <a href="{% url 'login' %}" class="pestana pestana-activa">Iniciar sesión</a>
+                <a href="{% url 'registro' %}" class="pestana">Crear cuenta</a>
+            </div>
+
+            <p class="antetitulo">Qué bueno verte</p>
+            <h1>Iniciar sesión</h1>
+            <p class="bajada">Ingresa con tu correo electrónico y contraseña.</p>
+
+            <!-- FORMULARIO -->
+           <form method="post" action="{% url 'login' %}" class="formulario">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                <div class="error-formulario">{{ form.non_field_errors }}</div>
+                {% endif %}
+
+                <div class="campo">
+                    <label for="{{ form.username.id_for_label }}">Correo o Usuario</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <p class="error-campo">{{ form.username.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="campo">
+                    <label for="{{ form.password.id_for_label }}">Contraseña</label>
+                    {{ form.password }}
+                    {% if form.password.errors %}
+                        <p class="error-campo">{{ form.password.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="boton-principal">Ingresar</button>
+            </form>
+
+             <p class="pie-acceso">¿No tienes cuenta? <a href="{% url 'registro' %}">Crear cuenta</a></p>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

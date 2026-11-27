@@ -1,0 +1,116 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}{{ producto.nombre }} | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/tienda.css' %}?v=5">
+{% endblock %}
+
+{% block content %}
+
+<div class="pagina-detalle">
+
+    <!-- FICHA DEL PRODUCTO -->
+    <section class="detalle-producto">
+        <div class="imagen-detalle">
+            {% if producto.imagen %}
+            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+            {% else %}
+            <span class="imagen-producto-vacia"><i class="fas fa-leaf" aria-hidden="true"></i></span>
+            {% endif %}
+        </div>
+
+        <div class="datos-detalle">
+            <p class="ruta-pagina">
+                <a href="{% url 'tienda' %}">Tienda</a> / <a href="{% url 'tiendaCategoria' producto.categoria %}">{{ producto.categoria }}</a>
+            </p>
+
+            <div class="etiquetas-detalle">
+                <span class="etiqueta">{{ producto.categoria }}</span>
+                <span class="etiqueta">{{ producto.marca }}</span>
+            </div>
+
+            <h1>{{ producto.nombre }}</h1>
+            <p class="precio-detalle">${{ producto.precio|floatformat:"0g" }}</p>
+            <p class="nota-precio">
+                IVA incluido{% if producto.medida %} · Formato {{ producto.medida|floatformat:"-2" }} {{ producto.unidad }}{% endif %}
+            </p>
+
+            <div class="descripcion-detalle">{{ producto.descripcion|linebreaks }}</div>
+
+            <!-- AGREGAR AL CARRITO -->
+            {% if producto.stock > 0 %}
+            <form method="post" action="{% url 'agregarCarrito' producto.id %}" class="formulario-agregar">
+                {% csrf_token %}
+                <label for="cantidad-detalle" class="sr-only">Cantidad</label>
+                <input type="number" id="cantidad-detalle" name="cantidad" value="1" min="1" max="{{ producto.stock }}" class="campo-cantidad" title="Cantidad">
+                <button type="submit" class="boton-principal">
+                    <i class="fas fa-shopping-bag" aria-hidden="true"></i> Agregar al carrito
+                </button>
+            </form>
+            {% else %}
+            <p class="formulario-agregar"><span class="etiqueta-agotado">Agotado</span></p>
+            {% endif %}
+
+            <ul class="ficha-meta">
+                {% if producto.stock > 0 %}
+                <li class="dato-detalle"><i class="fas fa-check" aria-hidden="true"></i> <span><strong>Stock:</strong> {{ producto.stock }} disponibles</span></li>
+                {% endif %}
+                {% if producto.aroma %}
+                <li class="dato-detalle"><i class="fas fa-wind" aria-hidden="true"></i> <span><strong>Aroma:</strong> {{ producto.aroma }}</span></li>
+                {% endif %}
+                {% if producto.medida %}
+                <li class="dato-detalle"><i class="fas fa-flask" aria-hidden="true"></i> <span><strong>Contenido:</strong> {{ producto.medida|floatformat:"-2" }} {{ producto.unidad }}</span></li>
+                {% endif %}
+                <li class="dato-detalle"><i class="fas fa-truck" aria-hidden="true"></i> <span>Retiro en tienda o despacho a domicilio</span></li>
+                <li class="dato-detalle"><i class="fas fa-leaf" aria-hidden="true"></i> <span>Fórmula biodegradable</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- PRODUCTOS RELACIONADOS -->
+    {% if productosRelacionados %}
+    <section class="seccion-relacionados">
+        <div class="encabezado-seccion">
+            <h2>También te puede interesar</h2>
+            <a href="{% url 'tienda' %}">Ver tienda <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+
+        <div class="grilla-productos">
+            {% for producto in productosRelacionados %}
+            <div class="tarjeta-producto">
+                <a href="{% url 'detalleProducto' producto.id %}" class="imagen-producto">
+                    {% if producto.imagen %}
+                    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" loading="lazy">
+                    {% else %}
+                    <span class="imagen-producto-vacia"><i class="fas fa-leaf" aria-hidden="true"></i></span>
+                    {% endif %}
+                </a>
+                <div class="datos-producto">
+                    <p class="marca-producto">{{ producto.marca }}</p>
+                    <h3><a href="{% url 'detalleProducto' producto.id %}">{{ producto.nombre }}</a></h3>
+                    <p>{{ producto.descripcion|truncatechars:70 }}</p>
+                    <div class="pie-producto">
+                        <span class="precio">${{ producto.precio|floatformat:"0g" }}</span>
+                        {% if producto.stock > 0 %}
+                        <form method="post" action="{% url 'agregarCarrito' producto.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="boton-agregar" title="Agregar al carrito" aria-label="Agregar {{ producto.nombre }} al carrito">
+                                <i class="fas fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                        {% else %}
+                        <span class="etiqueta-agotado">Agotado</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+</div>
+
+{% endblock %}

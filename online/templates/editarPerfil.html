@@ -1,0 +1,95 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}Editar perfil | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/cuenta.css' %}?v=5">
+{% endblock %}
+
+{% block content %}
+
+<div class="pagina-editar-perfil">
+
+    <!-- TÍTULO DE LA PÁGINA -->
+    <section class="encabezado-pagina">
+        <p class="antetitulo">Mi cuenta</p>
+        <h1>Editar perfil</h1>
+        <p class="bajada">Actualiza tus datos personales y tu dirección de despacho.</p>
+    </section>
+
+    <section class="seccion-editar">
+
+        <!-- DATOS PERSONALES Y DIRECCIÓN -->
+        <form method="post" action="{% url 'editarPerfil' %}" class="tarjeta formulario" novalidate>
+            {% csrf_token %}
+            {% if usuarioForm.non_field_errors or perfilForm.non_field_errors %}
+            <div class="error-formulario">
+                {{ usuarioForm.non_field_errors }}
+                {{ perfilForm.non_field_errors }}
+            </div>
+            {% endif %}
+
+            <h3>Datos personales</h3>
+            <div class="campo">
+                <label for="{{ usuarioForm.first_name.id_for_label }}">{{ usuarioForm.first_name.label }}</label>
+                {{ usuarioForm.first_name }}
+                {% if usuarioForm.first_name.errors %}
+                    <p class="error-campo">{{ usuarioForm.first_name.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="fila-campos">
+                <div class="campo">
+                    <label for="{{ usuarioForm.email.id_for_label }}">{{ usuarioForm.email.label }}</label>
+                    {{ usuarioForm.email }}
+                    {% if usuarioForm.email.errors %}
+                        <p class="error-campo">{{ usuarioForm.email.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                <div class="campo">
+                    <label for="{{ perfilForm.telefono.id_for_label }}">{{ perfilForm.telefono.label }}</label>
+                    {{ perfilForm.telefono }}
+                    {% if perfilForm.telefono.errors %}
+                        <p class="error-campo">{{ perfilForm.telefono.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <h3>Dirección de despacho</h3>
+            <div class="campo">
+                <label for="{{ perfilForm.direccion.id_for_label }}">{{ perfilForm.direccion.label }}</label>
+                {{ perfilForm.direccion }}
+                {% if perfilForm.direccion.errors %}
+                    <p class="error-campo">{{ perfilForm.direccion.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="fila-campos">
+                <div class="campo">
+                    <label for="{{ perfilForm.comuna.id_for_label }}">{{ perfilForm.comuna.label }}</label>
+                    {{ perfilForm.comuna }}
+                    {% if perfilForm.comuna.errors %}
+                        <p class="error-campo">{{ perfilForm.comuna.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                <div class="campo">
+                    <label for="{{ perfilForm.region.id_for_label }}">{{ perfilForm.region.label }}</label>
+                    {{ perfilForm.region }}
+                    {% if perfilForm.region.errors %}
+                        <p class="error-campo">{{ perfilForm.region.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="contenedor-boton">
+                <button type="submit" class="boton-principal">Guardar cambios</button>
+                <a href="{% url 'perfil' %}" class="boton-secundario">Cancelar</a>
+            </div>
+        </form>
+
+    </section>
+
+</div>
+
+{% endblock %}

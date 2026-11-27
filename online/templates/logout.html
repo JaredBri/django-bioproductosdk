@@ -1,0 +1,39 @@
+{% extends "componentes/base.html" %}
+{% load static %}
+
+{% block title %}Sesión cerrada | BioProductos DK{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/cuenta.css' %}?v=5">
+{% endblock %}
+
+{% block content %}
+
+<div class="pagina-logout">
+
+    <section class="seccion-acceso">
+        <div class="tarjeta tarjeta-acceso tarjeta-centrada">
+            {% if user.is_authenticated %}
+                <i class="fas fa-sign-out-alt icono-acceso" aria-hidden="true"></i>
+                <h1>¿Cerrar sesión?</h1>
+                <p class="bajada">Puedes volver a ingresar cuando quieras para revisar tu carrito y tus datos de despacho.</p>
+                <form method="post" action="{% url 'logout' %}" class="contenedor-boton">
+                    {% csrf_token %}
+                    <button type="submit" class="boton-principal">Cerrar sesión</button>
+                    <a href="{% url 'perfil' %}" class="boton-secundario">Volver al perfil</a>
+                </form>
+            {% else %}
+                <i class="fas fa-check-circle icono-acceso" aria-hidden="true"></i>
+                <h1>Cerraste tu sesión</h1>
+                <p class="bajada">Gracias por visitarnos. Te esperamos de vuelta.</p>
+                <div class="contenedor-boton">
+                    <a href="{% url 'inicio' %}" class="boton-principal">Volver al inicio</a>
+                    <a href="{% url 'login' %}" class="boton-secundario">Iniciar sesión otra vez</a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,390 @@
+/* ============================================================
+   checkout.css  –  Zona de pago y confirmación · BioProductos DK
+   v1 · mobile-first
+   ============================================================ */
+
+/* ── Pasos de compra ── */
+.pasos-compra {
+    max-width: 480px;
+    margin: 0 auto 2rem;
+    padding: 0 1rem;
+}
+.pasos-compra ol {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    counter-reset: none;
+}
+.pasos-compra li {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-texto-suave, #888);
+    position: relative;
+    text-align: center;
+}
+.pasos-compra li + li::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: calc(-50% + 14px);
+    right: calc(50% + 14px);
+    height: 2px;
+    background: var(--color-borde, #d8dcc0);
+}
+.pasos-compra span {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: var(--color-borde, #d8dcc0);
+    color: #fff;
+    position: relative;
+    z-index: 1;
+}
+.paso-activo {
+    color: var(--color-verde-oscuro, #2d6a4f) !important;
+}
+.paso-activo span {
+    background: var(--color-verde-oscuro, #2d6a4f) !important;
+}
+.paso-completado {
+    color: var(--color-verde-medio, #52b788) !important;
+}
+.paso-completado span {
+    background: var(--color-verde-medio, #52b788) !important;
+}
+.paso-completado + li::before {
+    background: var(--color-verde-medio, #52b788) !important;
+}
+
+/* ── Página checkout ── */
+.pagina-checkout,
+.pagina-confirmacion {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+}
+
+.grilla-checkout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+@media (min-width: 860px) {
+    .grilla-checkout {
+        grid-template-columns: 1fr 380px;
+        align-items: start;
+    }
+}
+
+.columna-checkout-principal {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.seccion-checkout h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-verde-oscuro, #2d6a4f);
+}
+
+/* ── Ficha datos de entrega ── */
+.ficha-datos-entrega {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.fila-dato {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.93rem;
+}
+.fila-dato dt {
+    min-width: 90px;
+    font-weight: 600;
+    color: var(--color-texto-suave, #666);
+}
+.fila-dato dd {
+    margin: 0;
+    color: var(--color-verde-oscuro, #1b1b1b);
+}
+.aviso-datos-incompletos {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: #fff8e1;
+    border-left: 3px solid #f9a825;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: #6d4c00;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+.aviso-datos-incompletos a {
+    color: var(--color-verde-oscuro, #2d6a4f);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+/* ── Nota de simulación ── */
+.nota-simulacion {
+    background: #e8f4fd;
+    border-left: 3px solid #1976d2;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 0.88rem;
+    color: #0d3c61;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+/* ── Opciones de pago ── */
+.opciones-pago {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.opcion-pago {
+    display: flex;
+    align-items: stretch;
+    cursor: pointer;
+}
+.opcion-pago input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.tarjeta-pago {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.9rem 1.1rem;
+    border: 2px solid var(--color-borde, #d8dcc0);
+    border-radius: var(--radio-m, 10px);
+    width: 100%;
+    transition: border-color 0.2s, background 0.2s;
+    cursor: pointer;
+}
+.tarjeta-pago i {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    color: var(--color-verde-oscuro, #2d6a4f);
+}
+.tarjeta-pago strong {
+    font-size: 0.95rem;
+}
+.tarjeta-pago small {
+    font-size: 0.78rem;
+    color: var(--color-texto-suave, #777);
+}
+.opcion-pago input[type="radio"]:checked + .tarjeta-pago {
+    border-color: var(--color-verde-oscuro, #2d6a4f);
+    background: #f0f7f0;
+}
+.opcion-pago:hover .tarjeta-pago {
+    border-color: var(--color-verde-medio, #52b788);
+}
+
+/* ── Resumen checkout ── */
+.resumen-checkout {
+    position: sticky;
+    top: 1.5rem;
+}
+.resumen-checkout h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--color-verde-oscuro, #2d6a4f);
+}
+.lista-resumen-checkout {
+    list-style: none;
+    margin: 0 0 1rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--color-borde, #d8dcc0);
+    padding-bottom: 1rem;
+}
+.item-resumen {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+.nombre-resumen {
+    flex: 1;
+    color: var(--color-verde-oscuro, #1b1b1b);
+}
+.cantidad-resumen {
+    color: var(--color-texto-suave, #888);
+    margin-left: 0.3rem;
+    font-size: 0.82rem;
+}
+.precio-resumen {
+    font-weight: 600;
+    white-space: nowrap;
+}
+.precio-total-checkout {
+    color: var(--color-verde-oscuro, #2d6a4f);
+    font-size: 1.15rem;
+}
+.acciones-checkout {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+.boton-ancho {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+.boton-confirmar {
+    font-size: 1rem;
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+}
+.aviso-seguridad {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--color-texto-suave, #888);
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+/* ── Carrito.html: botón "Ir a pagar" más prominente ── */
+.boton-pagar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1.05rem;
+    padding: 0.85rem 1.5rem;
+    width: 100%;
+    text-align: center;
+}
+
+/* ── Página de confirmación ── */
+.zona-confirmacion {
+    max-width: 680px;
+    margin: 2rem auto 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+.icono-exito {
+    font-size: 4rem;
+    color: var(--color-verde-medio, #52b788);
+    animation: aparece 0.5s ease;
+}
+@keyframes aparece {
+    from { opacity: 0; transform: scale(0.5); }
+    to   { opacity: 1; transform: scale(1); }
+}
+.zona-confirmacion h1 {
+    font-size: 2rem;
+    color: var(--color-verde-oscuro, #2d6a4f);
+    margin: 0;
+}
+.numero-pedido-card {
+    padding: 1.25rem 2rem;
+    text-align: center;
+    width: 100%;
+}
+.etiqueta-numero {
+    font-size: 0.82rem;
+    color: var(--color-texto-suave, #888);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.25rem;
+}
+.numero-pedido {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-verde-oscuro, #2d6a4f);
+    letter-spacing: 0.05em;
+    margin: 0 0 0.5rem;
+}
+.detalle-pago {
+    font-size: 0.88rem;
+    color: var(--color-texto-suave, #666);
+}
+.detalle-confirmacion {
+    width: 100%;
+    text-align: left;
+}
+.detalle-confirmacion h2 {
+    font-size: 1rem;
+    color: var(--color-verde-oscuro, #2d6a4f);
+    margin-bottom: 1rem;
+}
+.proximos-pasos {
+    width: 100%;
+    text-align: left;
+}
+.proximos-pasos h2 {
+    font-size: 1rem;
+    color: var(--color-verde-oscuro, #2d6a4f);
+    margin-bottom: 0.75rem;
+}
+.lista-pasos-info {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.lista-pasos-info li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.93rem;
+}
+.lista-pasos-info li i {
+    color: var(--color-verde-medio, #52b788);
+    width: 1.2rem;
+    text-align: center;
+    flex-shrink: 0;
+}
+.acciones-confirmacion {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
